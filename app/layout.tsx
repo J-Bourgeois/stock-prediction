@@ -45,7 +45,9 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
+              <div className="mt-2 ml-2">
               <SidebarTrigger />
+              </div>
               <div className="absolute top-2 right-2">
                 <ModeToggle />
               </div>
