@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface stockManagmentItem {
   id: string;
-  key: string;
+  index: string;
 }
 
 const initialState: stockManagmentItem[] = [];
