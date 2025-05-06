@@ -1,53 +1,36 @@
+"use client";
+
 import { useEffect, useState } from "react";
+import { homeStocksAsync } from "@/store/homeStocksSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/Store";
 
 interface stockPricesData {
   ticker: string;
-  currentPrice: number;
+  name: string;
+  price: number;
   currency: string;
 }
 
-const stockPricesResponse = () => {
+const StockPricesResponse = async () => {
   const [response, setResponse] = useState<stockPricesData | null>(null);
   const [loading, setLoading] = useState(true);
+  const homeStocks = useSelector((state: RootState) => {});
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const fetchStockPrices = async () => {
-      try {
-        const response = await fetch("/api/stockPrices", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({}),
-        });
-
-        const data: stockPricesData = await response.json();
-        setResponse(data);
-      } catch (error) {
-        setResponse(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchStockPrices();
-  }, []);
-
-  const homeStocks = () => {}
+    dispatch(homeStocksAsync());
+  }, [dispatch]);
 
   if (loading) {
-    return <div>Loading Stock Prices...</div>
+    return <div>Loading Stock Prices...</div>;
   }
 
   if (!response) {
-    return <div>Error recieving stock prices</div>
+    return <div>Error recieving stock prices</div>;
   }
 
-
-  return (
-  <div className="">
-    {}
-  </div>
-);
+  return <div className="">{}</div>;
 };
 
-export default stockPricesResponse;
+export default StockPricesResponse;

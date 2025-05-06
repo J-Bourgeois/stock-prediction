@@ -18,7 +18,7 @@ const homeStocksSlice = createSlice({
       })
       .addCase(
         homeStocksAsync.fulfilled,
-        (state, action: PayloadAction<homeStocksItem[]>) => {
+        (_, action: PayloadAction<homeStocksItem[]>) => {
           return action.payload;
         }
       )
@@ -28,11 +28,12 @@ const homeStocksSlice = createSlice({
   },
 });
 
-const homeStocksAsync = createAsyncThunk(
+export const homeStocksAsync = createAsyncThunk(
   "homeStocks/homeStocksAsync",
   async () => {
-    const response = await fetch("");
+    const response = await fetch(`https://api.stockdata.org/v1/data/quote?symbols=AAPL,NVDA,MSFT&api_token=${process.env.STOCKDATA_API_key}`);
     const data = await response.json();
+    console.log(data);
     return data;
   }
 );
