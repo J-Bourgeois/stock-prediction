@@ -11,6 +11,8 @@ export interface stockPricesData {
   name: string;
   price: number;
   currency: string;
+  day_high: number;
+  day_low: number;
 }
 
 export interface homeStocksApi {
