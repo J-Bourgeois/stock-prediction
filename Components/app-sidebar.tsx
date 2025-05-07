@@ -1,6 +1,5 @@
+import { Home, ChartCandlestick, LogIn } from "lucide-react";
 
-import { Calendar, Home, ChartCandlestick, Search, Settings } from "lucide-react"
- 
 import {
   Sidebar,
   SidebarContent,
@@ -10,7 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 const menuItems = [
   {
@@ -24,21 +23,11 @@ const menuItems = [
     icon: ChartCandlestick,
   },
   {
-    title: "Calendar",
+    title: "Log In",
     url: "#",
-    icon: Calendar,
+    icon: LogIn,
   },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-]
+];
 
 const AppNavbar = () => {
   return (

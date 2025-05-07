@@ -15,11 +15,11 @@ const StockPricesResponse = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col h-dvh text-center">
+    <div className="flex flex-col h-dvh min-w-9/12 text-center justify-center">
       {homeStocks.data.map((stock, index) => {
         return (
           <div
-            className="relative text-sm m-12 min-h-3/12 border border-foreground rounded-2xl flex flex-col justify-center items-center"
+            className="relative text-sm m-auto min-h-3/12 min-w-9/12 border border-foreground rounded-2xl flex flex-col justify-center items-center"
             key={index}
           >
             <p className="absolute top-2 left-2 max-w-6/12">{stock.name}</p>

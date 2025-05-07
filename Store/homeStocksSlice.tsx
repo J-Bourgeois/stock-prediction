@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Currency } from "lucide-react";
+
 
 export interface homeStocksItem {
   id: string;
@@ -59,7 +59,6 @@ export const homeStocksAsync = createAsyncThunk(
     const apiKey = process.env.NEXT_PUBLIC_STOCKDATA_API_key
     const response = await fetch(`https://api.stockdata.org/v1/data/quote?symbols=AAPL,NVDA,MSFT&api_token=${apiKey}`);
     const data = await response.json();
-    console.log(data);
     return data;
   }
 );
