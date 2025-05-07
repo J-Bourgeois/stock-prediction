@@ -5,32 +5,29 @@ import { homeStocksAsync } from "@/store/homeStocksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/Store";
 
-interface stockPricesData {
-  ticker: string;
-  name: string;
-  price: number;
-  currency: string;
-}
-
-const StockPricesResponse = async () => {
-  const [response, setResponse] = useState<stockPricesData | null>(null);
+const StockPricesResponse = () => {
   const [loading, setLoading] = useState(true);
-  const homeStocks = useSelector((state: RootState) => {});
+  const homeStocks = useSelector((state: RootState) => state.homeStocks);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(homeStocksAsync());
   }, [dispatch]);
 
-  if (loading) {
-    return <div>Loading Stock Prices...</div>;
-  }
-
-  if (!response) {
-    return <div>Error recieving stock prices</div>;
-  }
-
-  return <div className="">{}</div>;
+  return (
+    <div className="flex flex-col h-dvh text-center">
+      {homeStocks.data.map((stock, index) => {
+        return (
+          <div className="m-12 border-foreground" key={index}>
+            <p>{stock.name}</p>
+            <p>{stock.ticker}</p>
+            <p>{stock.price}</p>
+            <p>{stock.currency}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default StockPricesResponse;

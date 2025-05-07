@@ -1,11 +1,34 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Currency } from "lucide-react";
 
 export interface homeStocksItem {
   id: string;
   index: string;
 }
 
-const initialState: homeStocksItem[] = [];
+export interface stockPricesData {
+  ticker: string;
+  name: string;
+  price: number;
+  currency: string;
+}
+
+export interface homeStocksApi {
+  meta: {
+    requested: number,
+    returned: number
+  },
+  data: stockPricesData[]
+}
+
+
+const initialState: homeStocksApi = {
+  meta: {
+    requested: 0,
+    returned: 0
+  },
+  data: []
+}
 
 const homeStocksSlice = createSlice({
   name: "homeStocks",
@@ -18,7 +41,7 @@ const homeStocksSlice = createSlice({
       })
       .addCase(
         homeStocksAsync.fulfilled,
-        (_, action: PayloadAction<homeStocksItem[]>) => {
+        (_, action: PayloadAction<homeStocksApi>) => {
           return action.payload;
         }
       )
@@ -31,7 +54,8 @@ const homeStocksSlice = createSlice({
 export const homeStocksAsync = createAsyncThunk(
   "homeStocks/homeStocksAsync",
   async () => {
-    const response = await fetch(`https://api.stockdata.org/v1/data/quote?symbols=AAPL,NVDA,MSFT&api_token=${process.env.STOCKDATA_API_key}`);
+    const apiKey = process.env.NEXT_PUBLIC_STOCKDATA_API_key
+    const response = await fetch(`https://api.stockdata.org/v1/data/quote?symbols=AAPL,NVDA,MSFT&api_token=${apiKey}`);
     const data = await response.json();
     console.log(data);
     return data;
