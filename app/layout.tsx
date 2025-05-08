@@ -45,7 +45,7 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <div className="absolute sm:inline-flex top-0.5 left-0.5 h-7 w-7">
+              <div className="max-xs:absolute top-2 left-2 h-7 w-7">
                 <SidebarTrigger />
               </div>
               <div className="absolute top-2 right-2">
