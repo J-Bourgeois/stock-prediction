@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="flex m-auto min-h-dvh min-w-full flex-col justify-center">
       <h1 className="mt-4 text-center">Stock Prediction</h1>
-      <div className="flex flex-col">
+      <div className="flex flex-col max-w-sm min-w-sm m-auto">
         <StockPricesResponse />
       </div>
     </div>
