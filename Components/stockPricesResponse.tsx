@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { homeStocksAsync } from "@/store/homeStocksSlice";
+import { homeStocksNvidiaAsync } from "@/store/homeStocksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/Store";
 
@@ -11,7 +11,7 @@ const StockPricesResponse = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(homeStocksAsync());
+    dispatch(homeStocksNvidiaAsync());
   }, [dispatch]);
 
   return (
