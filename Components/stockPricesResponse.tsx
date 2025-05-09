@@ -10,6 +10,8 @@ import { AppDispatch, RootState } from "@/store/Store";
 const StockPricesResponse = () => {
   const [loading, setLoading] = useState(true);
   const homeStocksNvidia = useSelector((state: RootState) => state.homeStocksNvidia);
+  const homeStocksApple = useSelector((state: RootState) => state.homeStocksApple);
+  const homeStocksMicrosoft = useSelector((state: RootState) => state.homeStocksMicrosoft);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
