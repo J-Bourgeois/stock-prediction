@@ -6,8 +6,8 @@ const apiKey = process.env.NEXT_PUBLIC_STOCKDATA_API_key;
 
 const initialState: homeStocksApi = {
   meta: {
-    date_from: 0,
-    date_to: 0,
+    date_from: "",
+    date_to: "",
   },
   data: [],
 };

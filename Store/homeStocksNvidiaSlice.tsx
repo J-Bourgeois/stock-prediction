@@ -4,8 +4,8 @@ import { homeStocksApi } from "@/app/types/homeStocksInterface";
 
 const initialState: homeStocksApi = {
   meta: {
-    date_from: 0,
-    date_to: 0,
+    date_from: "",
+    date_to: "",
   },
   data: [],
 };

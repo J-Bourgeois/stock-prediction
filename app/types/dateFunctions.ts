@@ -1,5 +1,5 @@
 // All functions for recieving the current data and changing formats for different time lengths
-const today = new Date();
+export const today = new Date();
 
 const thirtyDaysAgo = new Date();
 thirtyDaysAgo.setDate(today.getDate() - 30);

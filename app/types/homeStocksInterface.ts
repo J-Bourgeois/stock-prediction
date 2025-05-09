@@ -1,23 +1,17 @@
-
 // interfaces for all the homeStocks
-export interface homeStocksItem {
-  id: string;
-  index: string;
-}
-
 export interface stockPricesData {
   ticker: string;
-  name: string;
-  price: number;
-  currency: string;
-  day_high: number;
-  day_low: number;
+  date: string;
+  data: {
+    close: number,
+    volume: number
+  }
 }
 
 export interface homeStocksApi {
   meta: {
-    date_from: number;
-    date_to: number;
+    date_from: string;
+    date_to: string;
   };
   data: stockPricesData[];
 }
