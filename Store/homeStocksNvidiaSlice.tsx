@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { homeStocksApi } from "@/app/interfaces/homeStocksInterface";
+import { homeStocksApi } from "@/app/types/homeStocksInterface";
 
 const initialState: homeStocksApi = {
   meta: {
@@ -11,24 +11,6 @@ const initialState: homeStocksApi = {
 };
 
 const apiKey = process.env.NEXT_PUBLIC_STOCKDATA_API_key;
-
-const today = new Date();
-
-const thirtyDaysAgo = new Date();
-thirtyDaysAgo.setDate(today.getDate() - 30);
-
-const ninetyDaysAgo = new Date();
-ninetyDaysAgo.setDate(today.getDate() - 90);
-
-const oneEightyDaysAgo = new Date();
-oneEightyDaysAgo.setDate(today.getDate() - 180);
-
-const formatDate = (date: Date) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-};
 
 const homeStocksNvidiaSlice = createSlice({
   name: "homeStocksNvidia",

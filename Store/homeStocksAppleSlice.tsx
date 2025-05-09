@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { homeStocksApi } from "@/app/interfaces/homeStocksInterface";
+import { homeStocksApi } from "@/app/types/homeStocksInterface";
 
 const apiKey = process.env.NEXT_PUBLIC_STOCKDATA_API_key;
 
