@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import stockManagmentReducer from './porfolioManagmentSlice';
-import homeStocksReducer from './homeStocksSlice';
+import homeStocksNvidiaReducer from './homeStocksNvidiaSlice';
+import homeStocksAppleReducer from './homeStocksAppleSlice';
+import homeStocksMicrosoftReducer from './homeStocksMicrosoftSliceSlice';
 
 export const store = configureStore({
   reducer: {
-    homeStocks: homeStocksReducer,
+    homeStocksNvidia: homeStocksNvidiaReducer,
+    homeStocksApple: homeStocksAppleReducer,
+    homeStocksMicrosoft: homeStocksMicrosoftReducer,
     stockManagment: stockManagmentReducer
   },
 });
