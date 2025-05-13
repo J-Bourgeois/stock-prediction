@@ -1,48 +1,75 @@
-"use client"
+"use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
-import { ChartConfig, ChartContainer } from "@/components/ui/chart"
-
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 
 type chartProps = {
   chartData: {
     meta: {
-      date_from: string,
-      date_to: string
-    }
+      date_from: string;
+      date_to: string;
+    };
     data: Array<{
-      date: string,
-      ticker: string
-    }>
-  }
-  chartConfig: ChartConfig
-}
+      date: string;
+      ticker: string;
+      data: {
+        close: number;
+      };
+    }>;
+  };
+  chartConfig: ChartConfig;
+};
 
-export function StocksChart({chartData, chartConfig}: chartProps) {
+export function StocksChart({ chartData, chartConfig }: chartProps) {
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
       <BarChart accessibilityLayer data={chartData.data}>
         <CartesianGrid vertical={false} />
-        <XAxis 
-            dataKey="date"
-            tickLine={false}
-            tickMargin={8}
-            axisLine={false}
-            minTickGap={32}
-              tickFormatter={(value) => {
-                const date = new Date(value)
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                })
-              }}
+        <XAxis
+          dataKey="date"
+          tickLine={false}
+          tickMargin={8}
+          axisLine={false}
+          minTickGap={32}
+          tickFormatter={(value) => {
+            const date = new Date(value);
+            return date.toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+            });
+          }}
         />
-        <Bar dataKey="ticker" fill="var(--color-ticker)" radius={4} />
-        {/* <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} /> */}
+        <ChartTooltip
+          content={<ChartTooltipContent />}
+          labelFormatter={(label) => {
+            const date = new Date(label);
+
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            const year = date.getFullYear();
+
+            const hours = String(date.getHours()).padStart(2, "0");
+            const minutes = String(date.getHours()).padStart(2, "0");
+
+            return `${month}-${day}, ${year} - ${hours}:${minutes}`;
+          }}
+          formatter={(value, name: string) => {
+            const nameMap: { [key: string]: string } = {
+              "data.close": " Close Price",
+            };
+            return [value, nameMap[name] || name];
+          }}
+        />
+        <Bar dataKey="data.close" fill="var(--color-ticker)" radius={4} />
       </BarChart>
     </ChartContainer>
-  )
+  );
 }
 
 // Completed chart

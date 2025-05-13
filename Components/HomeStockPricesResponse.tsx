@@ -21,6 +21,15 @@ const HomeStockPricesResponse = () => {
     dispatch(homeStocksMicrosoftAsync());
   }, [dispatch]);
 
+  const chartConfig = {
+    ticker: {
+      label: "Placeholder",
+      color: "#2563eb"
+    }
+  }
+
+  
+
   return (
     <div className="flex flex-col h-dvh min-w-full text-center justify-center">
       { /* {homeStocksNvidia.data.map((stock, index) => {
@@ -35,11 +44,9 @@ const HomeStockPricesResponse = () => {
           </div>
         );
       })} */}
-      {}
-      {}
-      {}
-      <StocksChart />
-      
+      <StocksChart chartData={homeStocksNvidia} chartConfig={chartConfig}/>
+      <StocksChart chartData={homeStocksApple} chartConfig={chartConfig}/>
+      <StocksChart chartData={homeStocksMicrosoft} chartConfig={chartConfig}/>
     </div>
   );
 };
