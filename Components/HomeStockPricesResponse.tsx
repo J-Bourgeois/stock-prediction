@@ -10,22 +10,42 @@ import { StocksChart } from "./StocksChart";
 
 const HomeStockPricesResponse = () => {
   const [loading, setLoading] = useState(true);
-  const homeStocksNvidia = useSelector(
-    (state: RootState) => state.homeStocksNvidia
-  );
-  const homeStocksApple = useSelector(
-    (state: RootState) => state.homeStocksApple
-  );
-  const homeStocksMicrosoft = useSelector(
-    (state: RootState) => state.homeStocksMicrosoft
-  );
+  const [error, setError] = useState<string | null>(null);
+  
+  const homeStocksNvidia = useSelector((state: RootState) => state.homeStocksNvidia);
+  const homeStocksApple = useSelector((state: RootState) => state.homeStocksApple);
+  const homeStocksMicrosoft = useSelector((state: RootState) => state.homeStocksMicrosoft);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(homeStocksNvidiaAsync());
-    dispatch(homeStocksAppleAsync());
-    dispatch(homeStocksMicrosoftAsync());
+    const fetchData = async () => {
+      try {
+        setError(null);
+        setLoading(true);
+        
+        const results = await Promise.all([
+          dispatch(homeStocksNvidiaAsync()).unwrap(),
+          dispatch(homeStocksAppleAsync()).unwrap(), 
+          dispatch(homeStocksMicrosoftAsync()).unwrap()
+        ]);
+
+        console.log('API Results:', results);
+      } catch (err) {
+        console.error('Failed to fetch stock data:', err);
+        setError('Failed to fetch stock data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [dispatch]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+  if (!homeStocksNvidia.data.length || !homeStocksApple.data.length || !homeStocksMicrosoft.data.length) {
+    return <div>No data available</div>;
+  }
 
   const chartConfig = {
     ticker: {
@@ -48,7 +68,7 @@ const HomeStockPricesResponse = () => {
           </div>
         );
       })} */}
-      <div className="relative m-auto min-w-9/12 w-9/12 flex flex-col">
+      <div className="relative m-auto min-w-9/12 w-9/12 flex flex-col text-sm">
         <h2 className="absolute top-2 left-2 max-w-6/12">Nvidia Corporation</h2>
         <p className="absolute top-2 right-2">
           {homeStocksNvidia.data[0].ticker}
