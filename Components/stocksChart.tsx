@@ -3,30 +3,23 @@
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import { ChartConfig, ChartContainer } from "@/components/ui/chart"
-import { homeStocksApi } from "@/app/types/homeStocksInterface"
-import { today } from "@/app/types/dateFunctions"
 
 
-const chartData: homeStocksApi = {
+type chartProps = {
+  chartData: {
     meta: {
-      date_from: "",
-      date_to: ""  
-    },
-    data: [],
+      date_from: string,
+      date_to: string
+    }
+    data: Array<{
+      date: string,
+      ticker: string
+    }>
+  }
+  chartConfig: ChartConfig
 }
 
-const chartConfig = {
-  ticker: {
-    label: `${chartData.data[0].ticker}`,
-    color: "#2563eb",
-  }
-  /* mobile: {
-    label: "Mobile",
-    color: "#60a5fa",
-  }, */
-} satisfies ChartConfig
-
-export function Component() {
+export function StocksChart({chartData, chartConfig}: chartProps) {
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
       <BarChart accessibilityLayer data={chartData.data}>
