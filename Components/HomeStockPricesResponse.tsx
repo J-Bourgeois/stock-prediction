@@ -10,9 +10,15 @@ import { StocksChart } from "./StocksChart";
 
 const HomeStockPricesResponse = () => {
   const [loading, setLoading] = useState(true);
-  const homeStocksNvidia = useSelector((state: RootState) => state.homeStocksNvidia);
-  const homeStocksApple = useSelector((state: RootState) => state.homeStocksApple);
-  const homeStocksMicrosoft = useSelector((state: RootState) => state.homeStocksMicrosoft);
+  const homeStocksNvidia = useSelector(
+    (state: RootState) => state.homeStocksNvidia
+  );
+  const homeStocksApple = useSelector(
+    (state: RootState) => state.homeStocksApple
+  );
+  const homeStocksMicrosoft = useSelector(
+    (state: RootState) => state.homeStocksMicrosoft
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -24,15 +30,13 @@ const HomeStockPricesResponse = () => {
   const chartConfig = {
     ticker: {
       label: "Placeholder",
-      color: "#2563eb"
-    }
-  }
-
-  
+      color: "#2563eb",
+    },
+  };
 
   return (
     <div className="flex flex-col h-dvh min-w-full text-center justify-center">
-      { /* {homeStocksNvidia.data.map((stock, index) => {
+      {/* {homeStocksNvidia.data.map((stock, index) => {
         return (
           <div
             className="relative text-sm m-auto min-h-3/12 min-w-9/12 border border-foreground rounded-2xl flex flex-col justify-center items-center"
@@ -44,9 +48,38 @@ const HomeStockPricesResponse = () => {
           </div>
         );
       })} */}
-      <StocksChart chartData={homeStocksNvidia} chartConfig={chartConfig}/>
-      <StocksChart chartData={homeStocksApple} chartConfig={chartConfig}/>
-      <StocksChart chartData={homeStocksMicrosoft} chartConfig={chartConfig}/>
+      <div className="relative m-auto min-w-9/12 w-9/12 flex flex-col">
+        <h2 className="absolute top-2 left-2 max-w-6/12">Nvidia Corporation</h2>
+        <p className="absolute top-2 right-2">
+          {homeStocksNvidia.data[0].ticker}
+        </p>
+        <div className="border border-foreground rounded-xl mt-8">
+          <StocksChart chartData={homeStocksNvidia} chartConfig={chartConfig} />
+        </div>
+      </div>
+      <div className="relative m-auto min-w-9/12 w-9/12 flex flex-col ">
+        <h2 className="absolute top-2 left-2 max-w-6/12">Apple Inc.</h2>
+        <p className="absolute top-2 right-2 ">
+          {homeStocksApple.data[0].ticker}
+        </p>
+        <div className="border border-foreground rounded-xl mt-8">
+          <StocksChart chartData={homeStocksApple} chartConfig={chartConfig} />
+        </div>
+      </div>
+      <div className="relative m-auto flex flex-col min-w-9/12 w-9/12">
+        <h2 className="absolute top-2 left-2 max-w-6/12">
+          Microsoft Corporation
+        </h2>
+        <p className="absolute top-2 right-2">
+          {homeStocksMicrosoft.data[0].ticker}
+        </p>
+        <div className="border border-foreground rounded-xl mt-8">
+          <StocksChart
+            chartData={homeStocksMicrosoft}
+            chartConfig={chartConfig}
+          />
+        </div>
+      </div>
     </div>
   );
 };
