@@ -61,16 +61,15 @@ export default function TimeSpanSelector() {
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="p-0"
+          className="p-0 max-w-6/12"
           /* side="right" */
           align="start"
         >
-          <div className="grid gap-2">
+          <div className="grid gap-2 w-full">
             {timeOptions.map((time) => {
               return (
-                <div key={time.label}>
+                <div key={time.label} data-key={time.label} className="relative flex items-center justify-between">
                   <Button
-                    key={time.value}
                     value={time.value}
                     variant="ghost"
                     className="w-full justify-start"
@@ -80,10 +79,12 @@ export default function TimeSpanSelector() {
                         : dispatch(setTimeSpan(time.value));
                       setOpen(false);
                     }}
-                  ></Button>
+                  >
+                    {time.label}
+                  </Button>
                   <Check
                     className={cn(
-                      "mr-2 h-4 w-4",
+                      "absolute right-2 h-4 w-4",
                       timeSpanSelector.selectedTimeSpan === time.value
                         ? "opacity-100"
                         : "opacity-0"
@@ -91,9 +92,6 @@ export default function TimeSpanSelector() {
                   />
                 </div>
               );
-              {
-                timeSpanSelector.label;
-              }
             })}
           </div>
         </PopoverContent>
