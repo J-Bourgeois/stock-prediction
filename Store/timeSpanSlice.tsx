@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   selectedTimeSpan: "30 Days",
+  label: "30 Days"
 };
 
 export const timeSpanSlice = createSlice({

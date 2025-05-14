@@ -12,7 +12,6 @@ import { StocksChart } from "./StocksChart";
 const HomeStockPricesResponse = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [daysBack, setDaysBack] = useState<number>(30);
 
   const homeStocksNvidia = useSelector(
     (state: RootState) => state.homeStocksNvidia
