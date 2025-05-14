@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/Store";
 import { StocksChart } from "./StocksChart";
 
+
 const HomeStockPricesResponse = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

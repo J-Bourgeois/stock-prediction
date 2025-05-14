@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import timeSpanReducer from './timeSpanSlice';
 import stockManagmentReducer from './porfolioManagmentSlice';
 import homeStocksNvidiaReducer from './homeStocksNvidiaSlice';
 import homeStocksAppleReducer from './homeStocksAppleSlice';
@@ -9,6 +10,7 @@ export const store = configureStore({
     homeStocksNvidia: homeStocksNvidiaReducer,
     homeStocksApple: homeStocksAppleReducer,
     homeStocksMicrosoft: homeStocksMicrosoftReducer,
+    timeSpan: timeSpanReducer,
     stockManagment: stockManagmentReducer
   },
 });
