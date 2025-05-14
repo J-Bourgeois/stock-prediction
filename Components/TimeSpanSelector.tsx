@@ -41,7 +41,7 @@ export default function TimeSpanSelector() {
 
   return (
     <div className="flex items-center space-x-4">
-      <p className="text-sm text-muted-foreground">Time Span</p>
+      <p className="xs:opacity-100 opacity-0 text-sm text-muted-foreground">Time Span</p>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -61,8 +61,8 @@ export default function TimeSpanSelector() {
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="p-0 max-w-6/12"
-          /* side="right" */
+          className="p-0 max-w-6/12 m-auto"
+          side="bottom"
           align="start"
         >
           <div className="grid gap-2 w-full">
