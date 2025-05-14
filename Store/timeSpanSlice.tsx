@@ -11,6 +11,7 @@ export const timeSpanSlice = createSlice({
   reducers: {
     setTimeSpan: (state, action) => {
       state.selectedTimeSpan = action.payload;
+      state.label = action.payload;
     },
   },
 });

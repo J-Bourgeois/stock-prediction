@@ -1,9 +1,13 @@
+"use client";
+
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/Store";
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
 import { Check, ChevronDown } from "lucide-react";
+import { setTimeSpan } from "@/store/timeSpanSlice";
+import { cn } from "../lib/utils";
 
 type TimeSpan = {
   value: string;
@@ -40,11 +44,19 @@ export default function TimeSpanSelector() {
       <p className="text-sm text-muted-foreground">Time Span</p>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant="outline" className="w-[150px] justify-start">
+          <Button
+            variant="outline"
+            className="relative w-[150px] justify-start"
+          >
             {timeSpanSelector ? (
-              <>{timeSpanSelector.label}{<ChevronDown/>}</>
+              <>
+                {timeSpanSelector.label}
+                <div className="chevronDown absolute right-2">
+                  <ChevronDown />
+                </div>
+              </>
             ) : (
-              <>Set time span</>
+              <>Set time span{<ChevronDown />}</>
             )}
           </Button>
         </PopoverTrigger>
@@ -53,8 +65,36 @@ export default function TimeSpanSelector() {
           /* side="right" */
           align="start"
         >
-          <div className="grid gap-4">
-            
+          <div className="grid gap-2">
+            {timeOptions.map((time) => {
+              return (
+                <div key={time.label}>
+                  <Button
+                    key={time.value}
+                    value={time.value}
+                    variant="ghost"
+                    className="w-full justify-start"
+                    onClick={() => {
+                      timeSpanSelector.selectedTimeSpan === time.value
+                        ? ""
+                        : dispatch(setTimeSpan(time.value));
+                      setOpen(false);
+                    }}
+                  ></Button>
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      timeSpanSelector.selectedTimeSpan === time.value
+                        ? "opacity-100"
+                        : "opacity-0"
+                    )}
+                  />
+                </div>
+              );
+              {
+                timeSpanSelector.label;
+              }
+            })}
           </div>
         </PopoverContent>
       </Popover>
