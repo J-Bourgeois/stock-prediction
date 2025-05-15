@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { homeStocksApi } from "@/app/types/homeStocksInterface";
+import { formatDate } from "@/app/types/dateFunctions";
 
 const initialState: homeStocksApi = {
   meta: {
@@ -37,7 +38,7 @@ export const homeStocksNvidiaAsync = createAsyncThunk(
   "homeStocksNvidia/homeStocksNvidiaAsync",
   async () => {
     const response = await fetch(
-      `https://api.stockdata.org/v1/data/intraday?symbols=NVDA&interval=hour&sort=asc&data_to=2025-05-09&api_token=${apiKey}`
+      `https://api.stockdata.org/v1/data/intraday?symbols=NVDA&interval=hour&sort=asc&data_to=${formatDate}&api_token=${apiKey}`
     );
     const data = await response.json();
     return data;

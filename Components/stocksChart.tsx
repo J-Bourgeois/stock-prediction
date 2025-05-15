@@ -55,7 +55,7 @@ export function StocksChart({ chartData, chartConfig }: chartProps) {
   const filteredChartData = filterChartDataByDays(chartData, timeSpanNumber);
 
   return (
-    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+    <ChartContainer config={chartConfig} className="min-h-[200px] max-h-[200px] w-full">
       <BarChart accessibilityLayer data={filteredChartData}>
         <CartesianGrid vertical={false} />
         <XAxis

@@ -67,32 +67,32 @@ const HomeStockPricesResponse = () => {
 
   return (
     <div className="flex flex-col h-dvh min-w-full text-center justify-center">
-      <div className="relative m-auto min-w-9/12 w-9/12 flex flex-col text-sm">
+      <div className="relative m-auto min-w-9/12 w-9/12 flex flex-col text-sm xs:w-full">
         <h2 className="absolute top-2 left-2 max-w-6/12">Nvidia Corporation</h2>
         <p className="absolute top-2 right-2">
           {homeStocksNvidia.data[0].ticker}
         </p>
-        <div className="border border-foreground rounded-xl mt-8">
+        <div className="border border-foreground rounded-xl mt-8 p-3">
           <StocksChart chartData={homeStocksNvidia} chartConfig={chartConfig} />
         </div>
       </div>
-      <div className="relative m-auto min-w-9/12 w-9/12 flex flex-col ">
+      <div className="relative m-auto min-w-9/12 w-9/12 flex flex-col text-sm xs:w-full">
         <h2 className="absolute top-2 left-2 max-w-6/12">Apple Inc.</h2>
         <p className="absolute top-2 right-2 ">
           {homeStocksApple.data[0].ticker}
         </p>
-        <div className="border border-foreground rounded-xl mt-8">
+        <div className="border border-foreground rounded-xl mt-8 p-3">
           <StocksChart chartData={homeStocksApple} chartConfig={chartConfig} />
         </div>
       </div>
-      <div className="relative m-auto flex flex-col min-w-9/12 w-9/12">
+      <div className="relative m-auto flex flex-col min-w-9/12 w-9/12 text-sm xs:w-full">
         <h2 className="absolute top-2 left-2 max-w-6/12">
           Microsoft
         </h2>
         <p className="absolute top-2 right-2">
           {homeStocksMicrosoft.data[0].ticker}
         </p>
-        <div className="border border-foreground rounded-xl mt-8">
+        <div className="border border-foreground rounded-xl mt-8 p-3">
           <StocksChart
             chartData={homeStocksMicrosoft}
             chartConfig={chartConfig}

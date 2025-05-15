@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { homeStocksApi } from "@/app/types/homeStocksInterface";
+import { formatDate } from "@/app/types/dateFunctions";
 
 const apiKey = process.env.NEXT_PUBLIC_STOCKDATA_API_key;
 
@@ -37,7 +38,7 @@ export const homeStocksMicrosoftAsync = createAsyncThunk(
   "homeStocksMicrosoft/homeStocksMicrosoftAsync",
   async () => {
     const response = await fetch(
-      `https://api.stockdata.org/v1/data/intraday?symbols=MSFT&api_token=${apiKey}`
+      `https://api.stockdata.org/v1/data/intraday?symbols=MSFT&interval=hour&sort=asc&data_to=${formatDate}&api_token=${apiKey}`
     );
     const data = await response.json();
     return data;
