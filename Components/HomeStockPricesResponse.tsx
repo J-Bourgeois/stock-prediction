@@ -48,14 +48,14 @@ const HomeStockPricesResponse = () => {
     fetchData();
   }, [dispatch]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="flex justify-center items-center">Loading...</div>;
   if (error) return <div>{error}</div>;
   if (
     !homeStocksNvidia.data.length ||
     !homeStocksApple.data.length ||
     !homeStocksMicrosoft.data.length
   ) {
-    return <div>No data available</div>;
+    return <div className="flex justify-center items-center">No data available</div>;
   }
 
   const chartConfig = {
@@ -67,18 +67,6 @@ const HomeStockPricesResponse = () => {
 
   return (
     <div className="flex flex-col h-dvh min-w-full text-center justify-center">
-      {/* {homeStocksNvidia.data.map((stock, index) => {
-        return (
-          <div
-            className="relative text-sm m-auto min-h-3/12 min-w-9/12 border border-foreground rounded-2xl flex flex-col justify-center items-center"
-            key={index}
-          >
-            <p className="absolute top-2 left-2 max-w-6/12">{'Nvidia Corporation'}</p>
-            <p className="absolute top-2 right-2">{stock.ticker}</p>
-            <p className="absolute bottom-2">{`${stock.data.close}`}</p>
-          </div>
-        );
-      })} */}
       <div className="relative m-auto min-w-9/12 w-9/12 flex flex-col text-sm">
         <h2 className="absolute top-2 left-2 max-w-6/12">Nvidia Corporation</h2>
         <p className="absolute top-2 right-2">

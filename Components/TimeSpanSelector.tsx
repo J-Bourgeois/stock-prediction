@@ -61,7 +61,7 @@ export default function TimeSpanSelector() {
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="p-0 max-w-6/12 m-auto"
+          className="p-0 max-w-[150px] w-[150px] m-auto"
           side="bottom"
           align="start"
         >
