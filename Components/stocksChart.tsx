@@ -33,16 +33,30 @@ export function StocksChart({ chartData, chartConfig }: chartProps) {
 
   const timeSpan = useSelector((state: RootState) => state.timeSpan);
 
-  const filterChartDataByDays = ((data: chartProps) => {
+  const filterChartDataByDays = ((preFilteredChartData: chartProps['chartData'], daysBack: number) => {
 
-    const date = new Date();
+    const date = new Date(`${chartData.meta.date_to}T00:00:00.000Z`);
+    
+    const selectedTimeSpan = new Date(date);
+    selectedTimeSpan.setUTCDate(date.getUTCDate() - daysBack);
 
+    const filteredData = preFilteredChartData.data.filter((item) => {
+      const itemDate = new Date(item.date);
+      
+      return itemDate >= selectedTimeSpan;
+    });
+
+    return filteredData;
 
   });
 
+  const timeSpanNumber = Number(timeSpan.selectedTimeSpan.split(' ')[0]);
+
+  const filteredChartData = filterChartDataByDays(chartData, timeSpanNumber);
+
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-      <BarChart accessibilityLayer data={chartData.data}>
+      <BarChart accessibilityLayer data={filteredChartData}>
         <CartesianGrid vertical={false} />
         <XAxis
           dataKey="date"
