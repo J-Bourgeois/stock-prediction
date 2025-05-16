@@ -140,6 +140,10 @@
   }
 }
 
-body[data-scroll-locked]{
-  min-width: 100%;
+@layer utilities {
+  @media (max-width: 480px) {
+    body[data-scroll-locked] {
+      min-width: 100%;
+    }
+  }
 }
