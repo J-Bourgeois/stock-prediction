@@ -7,6 +7,8 @@ import { homeStocksMicrosoftAsync } from "@/store/homeStocksMicrosoftSliceSlice"
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/Store";
 import { StocksChart } from "./StocksChart";
+import { Button } from "./ui/button";
+import { Plus } from "lucide-react";
 
 const HomeStockPricesResponse = () => {
   const [loading, setLoading] = useState(true);
@@ -76,6 +78,11 @@ const HomeStockPricesResponse = () => {
         </p>
         <div className="border border-foreground rounded-xl mt-8">
           <StocksChart chartData={homeStocksNvidia} chartConfig={chartConfig} />
+        </div>
+        <div className="pt-4">
+          <Button>
+            <Plus /> Add stock to Portfolio
+          </Button>
         </div>
       </div>
       <div className="relative pb-6 min-w-[300px] w-[80vw] max-w-[1200px] flex flex-col text-sm">

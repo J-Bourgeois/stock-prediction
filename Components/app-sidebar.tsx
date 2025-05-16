@@ -18,7 +18,7 @@ const menuItems = [
     icon: Home,
   },
   {
-    title: "My Porfolio",
+    title: "My Portfolio",
     url: "#",
     icon: ChartCandlestick,
   },
