@@ -121,20 +121,25 @@ export function StocksChart({ chartData, chartConfig }: chartProps) {
               labelFormatter={(label) => {
                 const date = new Date(label);
 
-                const month = String(date.getMonth() + 1).padStart(2, "0");
-                const day = String(date.getDate()).padStart(2, "0");
-                const year = date.getFullYear();
+                const options: Intl.DateTimeFormatOptions = {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric"
+                };
+
+                const formattedDate = date.toLocaleDateString(undefined, options);
 
                 const hours = String(date.getHours()).padStart(2, "0");
-                const minutes = String(date.getHours()).padStart(2, "0");
+                const minutes = String(date.getMinutes()).padStart(2, "0");
 
-                return `${month}-${day}, ${year} - ${hours}:${minutes}`;
+                return `${formattedDate} - ${hours}:${minutes}`;
               }}
               formatter={(value, name: string) => {
                 const nameMap: { [key: string]: string } = {
-                  "data.close": " Close Price",
+                  "data.close": "Close Price - ",
                 };
-                return [value, nameMap[name] || name];
+
+                return [nameMap[name] || name, value];
               }}
             />
             <Area dataKey="data.close" fill="var(--color-ticker)" />
