@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/Store";
 import { StocksChart } from "./StocksChart";
 
-
 const HomeStockPricesResponse = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -48,14 +47,17 @@ const HomeStockPricesResponse = () => {
     fetchData();
   }, [dispatch]);
 
-  if (loading) return <div className="flex justify-center items-center">Loading...</div>;
+  if (loading)
+    return <div className="flex justify-center items-center">Loading...</div>;
   if (error) return <div>{error}</div>;
   if (
     !homeStocksNvidia.data.length ||
     !homeStocksApple.data.length ||
     !homeStocksMicrosoft.data.length
   ) {
-    return <div className="flex justify-center items-center">No data available</div>;
+    return (
+      <div className="flex justify-center items-center">No data available</div>
+    );
   }
 
   const chartConfig = {
@@ -66,8 +68,8 @@ const HomeStockPricesResponse = () => {
   };
 
   return (
-    <div className="flex flex-col h-dvh min-w-full text-center justify-center">
-      <div className="relative m-auto pb-4 min-w-9/12 w-9/12 flex flex-col text-sm xs:w-full">
+    <div className="flex flex-col h-dvh min-w-full w-full text-center items-center">
+      <div className="relative pb-6 min-w-[300px] w-[80vw] max-w-[1200px] flex flex-col text-sm">
         <h2 className="absolute top-2 left-2 max-w-6/12">Nvidia Corporation</h2>
         <p className="absolute top-2 right-2">
           {homeStocksNvidia.data[0].ticker}
@@ -76,7 +78,7 @@ const HomeStockPricesResponse = () => {
           <StocksChart chartData={homeStocksNvidia} chartConfig={chartConfig} />
         </div>
       </div>
-      <div className="relative m-auto pb-4 min-w-9/12 w-9/12 flex flex-col text-sm xs:w-full">
+      <div className="relative pb-6 min-w-[300px] w-[80vw] max-w-[1200px] flex flex-col text-sm">
         <h2 className="absolute top-2 left-2 max-w-6/12">Apple Inc.</h2>
         <p className="absolute top-2 right-2 ">
           {homeStocksApple.data[0].ticker}
@@ -85,10 +87,8 @@ const HomeStockPricesResponse = () => {
           <StocksChart chartData={homeStocksApple} chartConfig={chartConfig} />
         </div>
       </div>
-      <div className="relative m-auto flex flex-col min-w-9/12 w-9/12 text-sm xs:w-full">
-        <h2 className="absolute top-2 left-2 max-w-6/12">
-          Microsoft
-        </h2>
+      <div className="relative flex flex-col min-w-[300px] w-[80vw] max-w-[1200px] text-sm">
+        <h2 className="absolute top-2 left-2 max-w-6/12">Microsoft</h2>
         <p className="absolute top-2 right-2">
           {homeStocksMicrosoft.data[0].ticker}
         </p>
