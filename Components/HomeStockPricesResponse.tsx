@@ -70,7 +70,7 @@ const HomeStockPricesResponse = () => {
   };
 
   return (
-    <div className="flex flex-col h-dvh min-w-full w-full text-center items-center">
+    <div className="flex flex-col min-w-full w-full text-center items-center">
       <div className="relative pb-6 min-w-[300px] w-[80vw] max-w-[1200px] flex flex-col text-sm">
         <h2 className="absolute top-2 left-2 max-w-6/12">Nvidia Corporation</h2>
         <p className="absolute top-2 right-2">
@@ -93,17 +93,27 @@ const HomeStockPricesResponse = () => {
         <div className="border border-foreground rounded-xl mt-8">
           <StocksChart chartData={homeStocksApple} chartConfig={chartConfig} />
         </div>
+        <div className="pt-4">
+          <Button>
+            <Plus /> Add stock to Portfolio
+          </Button>
+        </div>
       </div>
-      <div className="relative flex flex-col min-w-[300px] w-[80vw] max-w-[1200px] text-sm">
+      <div className="relative flex flex-col min-w-[300px] w-[80vw] max-w-[1200px] text-sm mb-12">
         <h2 className="absolute top-2 left-2 max-w-6/12">Microsoft</h2>
         <p className="absolute top-2 right-2">
           {homeStocksMicrosoft.data[0].ticker}
         </p>
-        <div className="border border-foreground rounded-xl mt-8 -mb-96">
+        <div className="border border-foreground rounded-xl mt-8">
           <StocksChart
             chartData={homeStocksMicrosoft}
             chartConfig={chartConfig}
           />
+        </div>
+        <div className="pt-4">
+          <Button>
+            <Plus /> Add stock to Portfolio
+          </Button>
         </div>
       </div>
     </div>

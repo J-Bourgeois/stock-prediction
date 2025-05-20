@@ -37,7 +37,7 @@ export default async function RootLayout({
         <AppNavbar />
         <html lang="en" suppressHydrationWarning>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} static antialiased`}
+            className={`${geistSans.variable} ${geistMono.variable} static antialiased min-h-screen`}
           >
             <ThemeProvider
               attribute="class"
