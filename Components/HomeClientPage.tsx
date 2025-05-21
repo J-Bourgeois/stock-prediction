@@ -7,6 +7,7 @@ import { hydrateHomeStocksApple } from '@/store/homeStocksAppleSlice';
 import { hydrateHomeStocksMicrosoft } from '@/store/homeStocksMicrosoftSliceSlice';
 import HomeStockPricesResponse from '@/components/HomeStockPricesResponse';
 import TimeSpanSelector from '@/components/TimeSpanSelector';
+import { AppDispatch } from '@/store/Store';
 
 interface Props {
   nvidiaStock: any;
@@ -19,7 +20,7 @@ export default function HomeClientPage({
   appleStock,
   microsoftStock,
 }: Props) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(hydrateHomeStocksNvidia(nvidiaStock));
