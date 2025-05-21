@@ -5,7 +5,6 @@ import {
 } from "@/lib/fetchStocks";
 
 import HomeClientPage from "@/components/HomeClientPage";
-import { useState } from "react";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
