@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/store/Store";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/Store";
 import { StocksChart } from "./StocksChart";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
+import { ChartSkeleton } from "./ui/ChartSkeleton";
 
 const HomeStockPricesResponse = () => {
-  
   const homeStocksNvidia = useSelector(
     (state: RootState) => state.homeStocksNvidia
   );
@@ -25,7 +24,17 @@ const HomeStockPricesResponse = () => {
     !homeStocksMicrosoft.data.length
   ) {
     return (
-      <div className="flex justify-center items-center">No data available</div>
+      <div className="flex flex-col min-w-full w-full text-center items-center">
+        <div className="relative pb-6 min-w-[300px] w-[80vw] max-w-[1200px] flex flex-col text-sm">
+          <ChartSkeleton />
+        </div>
+        <div className="relative pb-6 min-w-[300px] w-[80vw] max-w-[1200px] flex flex-col text-sm">
+          <ChartSkeleton />
+        </div>
+        <div className="relative flex flex-col min-w-[300px] w-[80vw] max-w-[1200px] text-sm mb-12">
+          <ChartSkeleton />
+        </div>
+      </div>
     );
   }
 
