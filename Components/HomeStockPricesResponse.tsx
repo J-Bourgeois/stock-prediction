@@ -1,9 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { homeStocksNvidiaAsync } from "@/store/homeStocksNvidiaSlice";
-import { homeStocksAppleAsync } from "@/store/homeStocksAppleSlice";
-import { homeStocksMicrosoftAsync } from "@/store/homeStocksMicrosoftSliceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/Store";
 import { StocksChart } from "./StocksChart";
@@ -11,9 +8,7 @@ import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 
 const HomeStockPricesResponse = () => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
+  
   const homeStocksNvidia = useSelector(
     (state: RootState) => state.homeStocksNvidia
   );
@@ -23,35 +18,7 @@ const HomeStockPricesResponse = () => {
   const homeStocksMicrosoft = useSelector(
     (state: RootState) => state.homeStocksMicrosoft
   );
-  const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setError(null);
-        setLoading(true);
-
-        const results = await Promise.all([
-          dispatch(homeStocksNvidiaAsync()).unwrap(),
-          dispatch(homeStocksAppleAsync()).unwrap(),
-          dispatch(homeStocksMicrosoftAsync()).unwrap(),
-        ]);
-
-        console.log("API Results:", results);
-      } catch (err) {
-        console.error("Failed to fetch stock data:", err);
-        setError("Failed to fetch stock data");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [dispatch]);
-
-  if (loading)
-    return <div className="flex justify-center items-center">Loading...</div>;
-  if (error) return <div>{error}</div>;
   if (
     !homeStocksNvidia.data.length ||
     !homeStocksApple.data.length ||

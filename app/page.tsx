@@ -1,18 +1,38 @@
-import HomeStockPricesResponse from "@/components/HomeStockPricesResponse";
-import TimeSpanSelector from "@/components/TimeSpanSelector";
+import {
+  fetchNvidiaStock,
+  fetchAppleStock,
+  fetchMicrosoftStock,
+} from "@/lib/fetchStocks";
 
-export default function Home() {
+import HomeClientPage from "@/components/HomeClientPage";
+import { useState } from "react";
+
+export const dynamic = "force-static";
+export const revalidate = 3600;
+
+export default async function Home() {
+  try {
+  const [nvidiaData, appleData, microsoftData] = await Promise.all([
+    fetchNvidiaStock(),
+    fetchAppleStock(),
+    fetchMicrosoftStock(),
+  ]);
+
   return (
-    <div className="flex xs:mr-7 min-h-screen max-w-full w-full flex-col items-center">
-      <h1 className="max-sm:pt-15 absolute -translate-x-1/2 left-6/12 top-3 pb-6 text-center xs:m-auto">
-        Stock Prediction
-      </h1>
-      <div className="absolute top-2 right-18">
-        <TimeSpanSelector />
-      </div>
-      <div className="relative flex flex-col xs:w-9/12 max-xs:min-w-sm mt-36">
-        <HomeStockPricesResponse />
-      </div>
-    </div>
+    <HomeClientPage
+      nvidiaStock={nvidiaData}
+      appleStock={appleData}
+      microsoftStock={microsoftData}
+    />
   );
+} catch (error) {
+  console.error('Error fetching Stock Data:', error)
+  return (
+    <HomeClientPage
+      nvidiaStock={{data: [], meta: {} }}
+      appleStock={{data: [], meta:{} }}
+      microsoftStock={{data: [], meta:{} }}
+    />
+  )
+}
 }
