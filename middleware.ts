@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { verifyJwt } from "./lib/session";
 
-const protectedRoutes = ["/porfolio"];
+const protectedRoutes = ["/portfolio"];
 const publicRoutes = ["/login", "/signup", "/"];
 
 export async function middleware(req: NextRequest) {
@@ -18,12 +18,12 @@ export async function middleware(req: NextRequest) {
    }
 
    if (isPublicRoute && session?.userId && !req.nextUrl.pathname.startsWith("/portfolio")) {
-    return NextResponse.redirect(new URL("dashboard", req.nextUrl))
+    return NextResponse.redirect(new URL("/portfolio", req.nextUrl))
    }
 
     return NextResponse.next();
 };
 
 export const config = {
-    matcher: ['/((?!api/llm|_next/static|_next/image|.*\\.png$).*)']
+    matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)']
 };
