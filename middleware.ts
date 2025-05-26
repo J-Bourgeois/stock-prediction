@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { verifyJwt } from "./lib/session";
 
-const protectedRoutes = ["/portfolio"];
+const protectedRoutes = ["/[user]/portfolio"];
 const publicRoutes = ["/login", "/signup", "/"];
 
 export async function middleware(req: NextRequest) {

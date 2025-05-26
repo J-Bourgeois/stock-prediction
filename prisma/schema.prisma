@@ -12,9 +12,31 @@ datasource db {
 }
 
 model User {
-  id         String @id @default(cuid())
-  name       String
-  email      String @unique
-  password   String
-  profilePic String?
+  id             String      @id @default(cuid())
+  name           String
+  email          String      @unique
+  hashedPassword String
+  Portfolio      Portfolio[]
+}
+
+model Portfolio {
+  id              String            @id @default(cuid())
+  user            User              @relation(fields: [userId], references: [id])
+  userId          String
+  stockSelections StocksSelection[]
+}
+
+model StocksSelection {
+  id          String    @id @default(cuid())
+  Portfolio   Portfolio @relation(fields: [portfolioId], references: [id])
+  portfolioId String
+  stock       Stock     @relation(fields: [stockId], references: [id])
+  stockId     String
+}
+
+model Stock {
+  id              String            @id @default(cuid())
+  symbol          String            @unique
+  name            String
+  StocksSelection StocksSelection[]
 }
