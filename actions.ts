@@ -20,7 +20,8 @@ const signupLoginSchema = z.object({
 });
 
 export async function signUp(prevState: any, formdata: FormData) {
-  const parsed = signupLoginSchema.safeParse(formdata);
+  
+  const parsed = signupLoginSchema.safeParse(Object.fromEntries(formdata));
 
   if (!parsed.success) {
     return {
@@ -48,6 +49,8 @@ export async function signUp(prevState: any, formdata: FormData) {
       hashedPassword: hashedPassword,
     },
   });
+
+  redirect("/login");
 }
 
 export async function logIn(prevState: any, formdata: FormData) {
