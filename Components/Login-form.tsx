@@ -49,7 +49,7 @@ function SubmitButton() {
       type="submit"
       className="m-auto bg-slate-800 rounded-xl text-center p-2 w-6/12"
     >
-      Sign Up
+      Log In
     </button>
   );
 }

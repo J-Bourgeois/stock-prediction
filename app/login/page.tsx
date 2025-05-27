@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { LogInForm } from "@/components/Login-form";
 import { toast } from "sonner";
 
 
@@ -17,8 +18,8 @@ export default function loginPage() {
 
 
   return (
-    <div className="flex flex-col items-center w-full pt-6">
-      <p>Welcome to the login page!</p>
+    <div className="flex flex-col items-center w-full pt-24">
+      <LogInForm/>
     </div>
   );
 }

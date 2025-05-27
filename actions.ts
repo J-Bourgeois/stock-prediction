@@ -8,7 +8,7 @@ import { cookies } from "next/headers";
 import { encrypt } from "@/lib/session";
 import { redirect } from "next/navigation";
 
-const signupLoginSchema = z.object({
+const signupSchema = z.object({
   name: z
     .string()
     .min(2, { message: "Name must be at least 2 characters long" }),
@@ -19,9 +19,17 @@ const signupLoginSchema = z.object({
     .trim(),
 });
 
+const logInSchema = z.object({
+  email: z.string().email().trim(),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters long" })
+    .trim(),
+});
+
 export async function signUp(prevState: any, formdata: FormData) {
   
-  const parsed = signupLoginSchema.safeParse(Object.fromEntries(formdata));
+  const parsed = signupSchema.safeParse(Object.fromEntries(formdata));
 
   if (!parsed.success) {
     return {
@@ -54,7 +62,7 @@ export async function signUp(prevState: any, formdata: FormData) {
 }
 
 export async function logIn(prevState: any, formdata: FormData) {
-  const result = signupLoginSchema.safeParse(Object.fromEntries(formdata));
+  const result = logInSchema.safeParse(Object.fromEntries(formdata));
 
   if (!result.success) {
     return { errors: result.error.flatten().fieldErrors };
@@ -81,7 +89,7 @@ export async function logIn(prevState: any, formdata: FormData) {
     expires: expiresAt
   });
 
-  redirect("/[user]/portfolio");
+  redirect(`/${user.id}/portfolio`);
 }
 
 export async function logOut() {
