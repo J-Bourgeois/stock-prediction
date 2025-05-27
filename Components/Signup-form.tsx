@@ -9,19 +9,19 @@ export const SignupForm = () => {
 
   return (
     <form action={action} className="grid gap-4 bg-slate-900 rounded-xl p-4">
-        <div>
+        <div className="flex justify-between items-center">
             <label htmlFor="name" className="p-2">Name</label>
-            <input id="name" name="name" placeholder="Name" />
+            <input id="name" name="name" placeholder="Name" className="border rounded-xl p-2"/>
         </div>
         {state?.errors?.name && <p>{state.errors.name}</p>}
-        <div>
+        <div className="flex justify-between items-center">
             <label htmlFor="email" className="p-2">Email</label>
-            <input id="email" name="email" placeholder="Email" />
+            <input id="email" name="email" placeholder="Email" className="border rounded-xl p-2"/>
         </div>
         {state?.errors?.email && <p>{state.errors.email}</p>}
-        <div>
+        <div className="flex justify-between items-center">
             <label htmlFor="password" className="p-2">Password</label>
-            <input id="password" name="password" placeholder="Password" type="password" />
+            <input id="password" name="password" placeholder="Password" type="password" className="border rounded-xl p-2"/>
         </div>
         {state?.errors?.password && <p>{state.errors.password}</p>}
         <SubmitButton />
