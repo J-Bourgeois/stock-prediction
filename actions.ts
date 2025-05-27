@@ -50,7 +50,7 @@ export async function signUp(prevState: any, formdata: FormData) {
     },
   });
 
-  redirect("/login");
+  redirect("/login?signup=success");
 }
 
 export async function logIn(prevState: any, formdata: FormData) {
