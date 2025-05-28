@@ -9,7 +9,7 @@ export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
   // Change these to add or remove public or protected routes
-  const publicRoutes = ["/login", "/signup", "/"];
+  const publicRoutes = ["/login", "/signup"];
 
   const isPublicRoute = publicRoutes.includes(path);
 
