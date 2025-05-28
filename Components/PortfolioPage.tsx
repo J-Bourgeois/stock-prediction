@@ -13,19 +13,22 @@ export async function PortfolioPage() {
 
   const user = await prisma.user.findUnique({
     where: { email },
-    include: { Portfolio: true },
+    include: {
+      Portfolio: {
+        include: {
+          stockSelections: true,
+        },
+      },
+    },
   });
+
 
   return (
     <div className="flex flex-col w-full h-screen">
-      {user?.Portfolio && user.Portfolio.length > 0 ? (
-        user.Portfolio.map((item, index) => (
-          <div key={index}>
-            {/* Add your portfolio item rendering logic here */}
-          </div>
-        ))
+      {user?.Portfolio && user.Portfolio[0]?.stockSelections.length > 0 ? (
+        user.Portfolio[0].stockSelections.map((item, index) => <div key={index}></div>)
       ) : (
-        <p className="p-6 mt-6 text-slate-400">
+        <p className="p-6 m-auto text-slate-400">
           Oops! Looks like you don't have any stocks in your portfolio! Go to
           the home page to add some!
         </p>

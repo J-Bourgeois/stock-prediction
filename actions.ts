@@ -5,7 +5,7 @@ import { hash } from "bcryptjs";
 import { z } from "zod";
 import { compare } from "bcryptjs";
 import { cookies } from "next/headers";
-import { encrypt } from "@/lib/session";
+import { encrypt, verifyJwt } from "@/lib/session";
 import { redirect } from "next/navigation";
 
 const signupSchema = z.object({
@@ -28,7 +28,6 @@ const logInSchema = z.object({
 });
 
 export async function signUp(prevState: any, formdata: FormData) {
-  
   const parsed = signupSchema.safeParse(Object.fromEntries(formdata));
 
   if (!parsed.success) {
@@ -55,6 +54,9 @@ export async function signUp(prevState: any, formdata: FormData) {
       name,
       email,
       hashedPassword: hashedPassword,
+      Portfolio: {
+        create: {},
+      },
     },
   });
 
@@ -86,7 +88,7 @@ export async function logIn(prevState: any, formdata: FormData) {
   (await cookies()).set("token", token, {
     httpOnly: true,
     secure: true,
-    expires: expiresAt
+    expires: expiresAt,
   });
 
   redirect(`/${user.id}/portfolio`);
@@ -94,5 +96,108 @@ export async function logIn(prevState: any, formdata: FormData) {
 
 export async function logOut() {
   (await cookies()).delete("token");
-  redirect("/login")
+  redirect("/login");
+}
+
+export async function addPortfolioStock(stockTicker: string) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  const session = await verifyJwt(token);
+
+  if (!session) return;
+
+  const { email } = session as { email: string };
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+    include: {
+      Portfolio: {
+        include: {
+          stockSelections: {
+            include: {
+              stock: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const usersPortfolio = user?.Portfolio[0];
+
+  if (!usersPortfolio) {
+    return { error: "Portfolio not found" };
+  }
+
+  const alreadyHaveStock = usersPortfolio?.stockSelections.some((selection) => {
+     return selection.stock.symbol === stockTicker;
+  });
+
+  if (alreadyHaveStock) {
+    return { error: "Stock is already in portfolio" };
+  }
+
+  const stock = await prisma.stock.findUnique({
+    where: { symbol: stockTicker },
+  });
+
+  if (!stock) {
+    return { error: "Stock not found" };
+  }
+
+  await prisma.stocksSelection.create({
+    data: {
+      portfolioId: usersPortfolio.id,
+      stockId: stock.id,
+    },
+  });
+
+  return { message: "Stock added to portfolio!"};
+}
+
+export async function removePortfolioStock(stockTicker: string) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  const session = await verifyJwt(token);
+
+  if (!session) return;
+
+  const { email } = session as { email: string };
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+    include: {
+      Portfolio: {
+        include: {
+          stockSelections: {
+            include: {
+              stock: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const usersPortfolio = user?.Portfolio[0];
+
+  if (!usersPortfolio) {
+    return { error: "Portfolio not found" };
+  }
+
+  const stockToDelete = usersPortfolio?.stockSelections.find((selection) => {
+    selection.stock.symbol === stockTicker;
+  });
+
+  if (!stockToDelete) {
+    return { error: "Stock is not in portfolio" };
+  }
+
+  await prisma.stocksSelection.delete({
+    where: {
+      id: stockToDelete.id
+    },
+  });
 }

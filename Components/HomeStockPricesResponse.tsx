@@ -6,6 +6,7 @@ import { StocksChart } from "./StocksChart";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 import { ChartSkeleton } from "./ui/ChartSkeleton";
+import { addPortfolioStock } from "@/actions";
 
 const HomeStockPricesResponse = () => {
   const homeStocksNvidia = useSelector(
@@ -56,7 +57,7 @@ const HomeStockPricesResponse = () => {
           <StocksChart chartData={homeStocksNvidia} chartConfig={chartConfig} />
         </div>
         <div className="pt-4">
-          <Button>
+          <Button onClick={() => addPortfolioStock(homeStocksNvidia.data[0].ticker)}>
             <Plus /> Add stock to Portfolio
           </Button>
         </div>
@@ -70,7 +71,7 @@ const HomeStockPricesResponse = () => {
           <StocksChart chartData={homeStocksApple} chartConfig={chartConfig} />
         </div>
         <div className="pt-4">
-          <Button>
+          <Button onClick={() => addPortfolioStock(homeStocksApple.data[0].ticker)}>
             <Plus /> Add stock to Portfolio
           </Button>
         </div>
@@ -87,7 +88,7 @@ const HomeStockPricesResponse = () => {
           />
         </div>
         <div className="pt-4">
-          <Button>
+          <Button onClick={() => addPortfolioStock(homeStocksMicrosoft.data[0].ticker)}>
             <Plus /> Add stock to Portfolio
           </Button>
         </div>
