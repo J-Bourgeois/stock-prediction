@@ -2,7 +2,13 @@ import prisma from "@/lib/prisma";
 import { verifyJwt } from "@/lib/session";
 import { cookies } from "next/headers";
 
-export async function PortfolioPage() {
+interface Props {
+  nvidiaStock: any,
+  appleStock: any,
+  microsoftStock: any
+}
+
+export async function PortfolioPage({nvidiaStock, appleStock, microsoftStock}: Props) {
   const cookieStore = await cookies();
   const cookie = cookieStore.get("token")?.value;
   const session = await verifyJwt(cookie);
@@ -26,7 +32,10 @@ export async function PortfolioPage() {
   return (
     <div className="flex flex-col w-full h-screen">
       {user?.Portfolio && user.Portfolio[0]?.stockSelections.length > 0 ? (
-        user.Portfolio[0].stockSelections.map((item, index) => <div key={index}></div>)
+        user.Portfolio[0].stockSelections.map((item, index) => (
+        <div key={index}>
+
+        </div>))
       ) : (
         <p className="p-6 m-auto text-slate-400">
           Oops! Looks like you don't have any stocks in your portfolio! Go to
