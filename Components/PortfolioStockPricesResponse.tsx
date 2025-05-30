@@ -11,7 +11,7 @@ import { hydrateHomeStocksMicrosoft } from "@/store/homeStocksMicrosoftSliceSlic
 import { StocksChart } from "./StocksChart";
 import { Button } from "./ui/button";
 import { homeStocksApi } from "@/app/types/homeStocksInterface";
-import { ActionCreatorWithPayload, Dispatch } from "@reduxjs/toolkit";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 
 interface PortfolioStockProps {
@@ -39,15 +39,14 @@ export default async function PortfolioStockPricesResponse({
     const appleData = useSelector((state: RootState) => state.homeStocksApple);
     const microsoftData = useSelector((state: RootState) => state.homeStocksMicrosoft);
 
-    const hydrateIfEmpty = (dataArray: homeStocksApi, action: ActionCreatorWithPayload<homeStocksApi>) => {
-        if (dataArray.data.length === 0) action(stockData);
+    const hydrateIfEmpty = (dataArray: homeStocksApi, action: PayloadAction<homeStocksApi>) => {
+        if (dataArray.data.length === 0) dispatch(action);
     }
 
     useEffect(() => {
         hydrateIfEmpty(nvidiaData, hydrateHomeStocksNvidia(nvidiaStock));
-        nvidiaData.data.length === 0 && dispatch(hydrateHomeStocksNvidia(nvidiaStock));
-        appleData.data.length === 0 && dispatch(hydrateHomeStocksApple(appleStock));
-        microsoftData.data.length === 0 && dispatch(hydrateHomeStocksMicrosoft(microsoftStock));
+        hydrateIfEmpty(appleData, hydrateHomeStocksApple(appleStock));
+        hydrateIfEmpty(microsoftData, hydrateHomeStocksMicrosoft(microsoftStock));
     }, [dispatch, nvidiaStock, appleStock, microsoftStock]);
 
   return (
