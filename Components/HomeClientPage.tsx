@@ -1,18 +1,19 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { hydrateHomeStocksNvidia } from '@/store/homeStocksNvidiaSlice';
-import { hydrateHomeStocksApple } from '@/store/homeStocksAppleSlice';
-import { hydrateHomeStocksMicrosoft } from '@/store/homeStocksMicrosoftSliceSlice';
-import HomeStockPricesResponse from '@/components/HomeStockPricesResponse';
-import TimeSpanSelector from '@/components/TimeSpanSelector';
-import { AppDispatch } from '@/store/Store';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { hydrateHomeStocksNvidia } from "@/store/homeStocksNvidiaSlice";
+import { hydrateHomeStocksApple } from "@/store/homeStocksAppleSlice";
+import { hydrateHomeStocksMicrosoft } from "@/store/homeStocksMicrosoftSliceSlice";
+import HomeStockPricesResponse from "@/components/HomeStockPricesResponse";
+import TimeSpanSelector from "@/components/TimeSpanSelector";
+import { AppDispatch } from "@/store/Store";
+import { homeStocksApi } from "@/app/types/homeStocksInterface";
 
 interface Props {
-  nvidiaStock: any;
-  appleStock: any;
-  microsoftStock: any;
+  nvidiaStock: homeStocksApi;
+  appleStock: homeStocksApi;
+  microsoftStock: homeStocksApi;
 }
 
 export default function HomeClientPage({

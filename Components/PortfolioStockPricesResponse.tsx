@@ -76,7 +76,7 @@ export default function PortfolioStockPricesResponse({
       </div>
       <div className="pt-4">
         <Button>
-          Ask A.I if you should buy this stock!
+          Ask AI if you should buy this stock!
         </Button>
       </div>
     </div>
