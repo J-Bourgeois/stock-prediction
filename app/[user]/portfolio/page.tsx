@@ -24,9 +24,27 @@ export default async function portfolio() {
     console.error(`Error fetching stock Data:`, error);
     return (
       <PortfolioPage
-        nvidiaStock={{ data: [], meta: {} }}
-        appleStock={{ data: [], meta: {} }}
-        microsoftStock={{ data: [], meta: {} }}
+        nvidiaStock={{
+          data: [],
+          meta: {
+            date_from: "",
+            date_to: "",
+          },
+        }}
+        appleStock={{
+          data: [],
+          meta: {
+            date_from: "",
+            date_to: "",
+          },
+        }}
+        microsoftStock={{
+          data: [],
+          meta: {
+            date_from: "",
+            date_to: "",
+          },
+        }}
       />
     );
   }
