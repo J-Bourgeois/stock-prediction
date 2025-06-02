@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store/Store";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/Store";
 
 import { hydrateHomeStocksNvidia } from "@/store/homeStocksNvidiaSlice";
 import { hydrateHomeStocksApple } from "@/store/homeStocksAppleSlice";
@@ -11,7 +11,6 @@ import { hydrateHomeStocksMicrosoft } from "@/store/homeStocksMicrosoftSliceSlic
 import { StocksChart } from "./StocksChart";
 import { Button } from "./ui/button";
 import { homeStocksApi } from "@/app/types/homeStocksInterface";
-import { PayloadAction } from "@reduxjs/toolkit";
 
 interface PortfolioStockProps {
   stockData: {
@@ -38,23 +37,33 @@ export default function PortfolioStockPricesResponse({
   microsoftStock,
 }: PortfolioStockProps) {
   const dispatch = useDispatch<AppDispatch>();
-
-  const hydrateIfEmpty = (() => {
-    let hasHydrated = false;
-
-    return ((dataArray: homeStocksApi, action: (data: homeStocksApi) => PayloadAction<homeStocksApi>) => {
-      if (!hasHydrated && dataArray.data.length > 0) {
-        hasHydrated = true;
-        return dispatch(action(dataArray))
-      }
-    })
-  })();
+  const hasHydrated = useRef(false);
 
   useEffect(() => {
-    hydrateIfEmpty(nvidiaStock, hydrateHomeStocksNvidia);
-    hydrateIfEmpty(appleStock, hydrateHomeStocksApple);
-    hydrateIfEmpty(microsoftStock, hydrateHomeStocksMicrosoft);
-  }, [dispatch, nvidiaStock, appleStock, microsoftStock]);
+    if (hasHydrated.current) return;
+
+    switch (stockData.symbol) {
+      case "NVDA":
+        if (nvidiaStock.data.length > 0) {
+          dispatch(hydrateHomeStocksNvidia(nvidiaStock));
+        }
+        break;
+      case "AAPL":
+        if (appleStock.data.length > 0) {
+          dispatch(hydrateHomeStocksApple(appleStock));
+        }
+        break;
+      case "MSFT":
+        if (microsoftStock.data.length > 0) {
+          dispatch(hydrateHomeStocksMicrosoft(microsoftStock));
+        }
+        break;
+      default:
+        console.warn(`Unsupported Stock Symbol: ${stockData.symbol}`);
+    }
+
+    hasHydrated.current = true;
+  }, [dispatch, stockData.symbol, nvidiaStock, appleStock, microsoftStock]);
 
   return (
     <div className="relative pb-6 min-w-[300px] w-[80vw] max-w-[1200px] flex flex-col text-sm">
@@ -75,9 +84,7 @@ export default function PortfolioStockPricesResponse({
         />
       </div>
       <div className="pt-4">
-        <Button>
-          Ask AI if you should buy this stock!
-        </Button>
+        <Button>Ask AI if you should buy this stock!</Button>
       </div>
     </div>
   );
