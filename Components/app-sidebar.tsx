@@ -11,25 +11,28 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-const menuItems = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "My Portfolio",
-    url: "#",
-    icon: ChartCandlestick,
-  },
-  {
-    title: "Log In",
-    url: "#",
-    icon: LogIn,
-  },
-];
+interface AppNavbarProps {
+  userId: string | null;
+}
 
-const AppNavbar = () => {
+const AppNavbar = ({ userId }: AppNavbarProps) => {
+  const menuItems = [
+    {
+      title: "Home",
+      url: "/",
+      icon: Home,
+    },
+    {
+      title: "My Portfolio",
+      url: `/${userId}/portfolio`,
+      icon: ChartCandlestick,
+    },
+    {
+      title: "Log In",
+      url: "/login",
+      icon: LogIn,
+    },
+  ];
   return (
     <Sidebar>
       <SidebarContent>
