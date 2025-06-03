@@ -1,16 +1,29 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/store/Store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/Store";
 
 import { hydrateHomeStocksNvidia } from "@/store/homeStocksNvidiaSlice";
 import { hydrateHomeStocksApple } from "@/store/homeStocksAppleSlice";
 import { hydrateHomeStocksMicrosoft } from "@/store/homeStocksMicrosoftSliceSlice";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { StocksChart } from "./StocksChart";
 import { Button } from "./ui/button";
+import ResponsiveButton from "./ResponsiveButton";
 import { homeStocksApi } from "@/app/types/homeStocksInterface";
+import { removePortfolioStock } from "@/actions";
 
 interface PortfolioStockProps {
   stockData: {
@@ -83,8 +96,30 @@ export default function PortfolioStockPricesResponse({
           chartConfig={chartConfig}
         />
       </div>
-      <div className="pt-4">
-        <Button>Ask AI if you should buy this stock!</Button>
+      <div className="flex justify-between pt-4 w-full">
+        <ResponsiveButton />
+        <AlertDialog>
+          <AlertDialogTrigger asChild className="max-w-6/12">
+            <Button variant="destructive">Remove Stock</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                stock and remove your data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => removePortfolioStock(stockData.symbol)}
+              >
+                Continue
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </div>
   );

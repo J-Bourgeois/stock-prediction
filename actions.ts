@@ -188,7 +188,7 @@ export async function removePortfolioStock(stockTicker: string) {
   }
 
   const stockToDelete = usersPortfolio?.stockSelections.find((selection) => {
-    selection.stock.symbol === stockTicker;
+    return selection.stock.symbol === stockTicker;
   });
 
   if (!stockToDelete) {
