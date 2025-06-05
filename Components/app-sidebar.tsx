@@ -1,4 +1,4 @@
-import { Home, ChartCandlestick, LogIn } from "lucide-react";
+import { Home, ChartCandlestick, LogIn, LogOut } from "lucide-react";
 
 import {
   Sidebar,
@@ -16,7 +16,7 @@ interface AppNavbarProps {
 }
 
 const AppNavbar = ({ userId }: AppNavbarProps) => {
-  const menuItems = [
+  const defaultMenuItems = [
     {
       title: "Home",
       url: "/",
@@ -26,13 +26,23 @@ const AppNavbar = ({ userId }: AppNavbarProps) => {
       title: "My Portfolio",
       url: `/${userId}/portfolio`,
       icon: ChartCandlestick,
-    },
-    {
-      title: "Log In",
-      url: "/login",
-      icon: LogIn,
-    },
+    }
   ];
+
+  const authMenuItems = userId
+    ? {
+        title: "Log Out",
+        url: "/",
+        icon: LogOut,
+      }
+    : {
+        title: "Log In",
+        url: "/login",
+        icon: LogIn,
+      };
+
+  const menuItems = [...defaultMenuItems, authMenuItems];
+
   return (
     <Sidebar>
       <SidebarContent>
