@@ -1,17 +1,15 @@
-export const dynamic = "force-dynamic";
-
+import { cookies } from "next/headers";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "../store/StoreProvider";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { verifyJwt } from "@/lib/session";
-import prisma from "@/lib/prisma";
-import { cookies } from "next/headers";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/themeModeToggle";
 import { Toaster } from "@/components/ui/sonner";
 import AppNavbar from "@/components/app-sidebar";
+import UserDataProvider from "@/lib/UserDataProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,32 +32,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = await cookies();
+
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
 
-  const token = cookieStore.get("token")?.value;
-
-  const session = await verifyJwt(token);
-
-  let userId = null;
-
-  if (session?.email) {
-    const { email } = session as { email: string };
-
-    const user = await prisma.user.findUnique({
-      where: { email },
-    });
-
-    userId = user?.id ?? null;
-  }
+  const userId = await UserDataProvider();
 
   return (
-    <StoreProvider>
-      <SidebarProvider defaultOpen={defaultOpen}>
-        <AppNavbar userId={userId} />
-        <html lang="en" suppressHydrationWarning>
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} static antialiased min-h-screen`}
-          >
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} static antialiased min-h-screen`}
+      >
+        <StoreProvider>
+          <SidebarProvider defaultOpen={defaultOpen}>
+            <AppNavbar userId={userId ?? null} />
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -75,9 +60,9 @@ export default async function RootLayout({
               {children}
               <Toaster />
             </ThemeProvider>
-          </body>
-        </html>
-      </SidebarProvider>
-    </StoreProvider>
+          </SidebarProvider>
+        </StoreProvider>
+      </body>
+    </html>
   );
 }

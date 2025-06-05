@@ -11,10 +11,10 @@ export async function middleware(req: NextRequest) {
   // Change these to add or remove public or protected routes
   const publicRoutes = ["/login", "/signup"];
 
-  const isPublicRoute = publicRoutes.includes(path);
+  const segments = path.split("/").filter(Boolean);
+  const userInPath = segments.length > 0 ? segments[0] : null;
 
-  const match = path.match(/^\/([^\/]+)(\/.*)?$/);
-  const userInPath = match?.[1];
+  const isPublicRoute = publicRoutes.includes(`/${userInPath}`);
 
   const isProtectedRoute = !!userInPath && !isPublicRoute;
 
@@ -30,14 +30,14 @@ export async function middleware(req: NextRequest) {
     userInPath &&
     session?.sub !== userInPath
   ) {
-    return NextResponse.redirect(new URL(`/`, req.nextUrl));
+    return NextResponse.redirect(new URL("/", req.nextUrl));
   }
 
   // 3. Signed-in users on public pages get redirected to their portfolio
   if (isPublicRoute && session?.sub) {
     const target = `/${session.sub}/portfolio`;
 
-    if (path !== target) {
+    if (session.sub && path !== target) {
       return NextResponse.redirect(new URL(target, req.nextUrl));
     }
   }

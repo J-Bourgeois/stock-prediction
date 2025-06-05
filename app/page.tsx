@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import {
   fetchNvidiaStock,
   fetchAppleStock,
@@ -5,9 +7,6 @@ import {
 } from "@/lib/fetchStocks";
 
 import HomeClientPage from "@/components/HomeClientPage";
-
-export const dynamic = "force-static";
-export const revalidate = 3600;
 
 export default async function Home() {
   try {
