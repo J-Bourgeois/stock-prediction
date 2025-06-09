@@ -32,7 +32,7 @@ interface AppNavbarProps {
 }
 
 const AppNavbar = ({ userId, userName }: AppNavbarProps) => {
-  const menuItems = [
+  const menuItems = userId ? [
     {
       title: "Home",
       url: "/",
@@ -42,8 +42,14 @@ const AppNavbar = ({ userId, userName }: AppNavbarProps) => {
       title: "My Portfolio",
       url: `/${userId}/portfolio`,
       icon: ChartCandlestick,
-    },
-  ];
+    }
+  ] : [
+    {
+      title: "Home",
+      url: "/",
+      icon: Home
+    }
+  ]
 
   const authMenuItems = userId
     ? {
@@ -103,7 +109,7 @@ const AppNavbar = ({ userId, userName }: AppNavbarProps) => {
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <SidebarMenuButton asChild>
-                      <a href={authMenuItems.url}>
+                      <a onClick={logOut}>
                         <authMenuItems.icon />
                         <span>{authMenuItems.title}</span>
                       </a>
@@ -113,9 +119,9 @@ const AppNavbar = ({ userId, userName }: AppNavbarProps) => {
               </DropdownMenu>
             ) : (
               <SidebarMenuButton>
-                <a href="/login">
-                  <authMenuItems.icon />
-                  <span>{authMenuItems.title}</span>
+                <a href="/login" className="flex flex-row w-full">
+                  <authMenuItems.icon className="pr-1"/>
+                  <span className="pl-1">{authMenuItems.title}</span>
                 </a>
               </SidebarMenuButton>
             )}
