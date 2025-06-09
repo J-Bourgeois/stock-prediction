@@ -96,7 +96,7 @@ export async function logIn(prevState: any, formdata: FormData) {
 
 export async function logOut() {
   (await cookies()).delete("token");
-  redirect("/login");
+  redirect("/");
 }
 
 export async function addPortfolioStock(stockTicker: string) {

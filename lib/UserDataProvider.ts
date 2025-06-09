@@ -20,7 +20,8 @@ export default async function UserDataProvider() {
       where: { email },
     });
 
-    return user?.id ?? null;
+    return { id: user?.id, name: user?.name }
+
   } catch (error) {
     console.log("Failed to get user ID from token:", error);
   }

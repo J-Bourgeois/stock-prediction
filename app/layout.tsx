@@ -44,7 +44,7 @@ export default async function RootLayout({
       >
         <StoreProvider>
           <SidebarProvider defaultOpen={defaultOpen}>
-            <AppNavbar userId={userId ?? null} />
+            <AppNavbar userId={userId?.id ?? null} userName={userId?.name ?? null} />
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
