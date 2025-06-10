@@ -205,3 +205,11 @@ export async function removePortfolioStock(stockTicker: string) {
 export async function changeName(prevState: any, formdata: FormData) {
   
 }
+
+export async function changeEmail(prevState: any, formdata: FormData) {
+
+}
+
+export async function changePassword(prevState: any, formdata: FormData) {
+  
+}

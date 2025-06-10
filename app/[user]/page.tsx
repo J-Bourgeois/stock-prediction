@@ -1,17 +1,30 @@
 "use server"
 
-import { TabsDemo } from "@/components/ChangeUserInfoForm";
-import UserDataProvider from "@/lib/UserDataProvider";
+import { ChangeUserInfoForm } from "@/components/ChangeUserInfoForm";
+import { verifyJwt } from "@/lib/session";
+import { cookies } from "next/headers";
+import prisma from "@/lib/prisma";
+import { redirect } from "next/navigation";
 
 export default async function User({ params }: { params: { user: string } }) {
   const { user } = await params;
 
-  const userInfo = await UserDataProvider();
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+  const session = await verifyJwt(token);
+
+  if (!session) redirect("/login");
   
+  const { email } = session as { email: string};
+
+  const dbUser = await prisma.user.findUnique({
+    where: { email }
+  })
+
   return (
     <div className="flex flex-col items-center mt-6 w-full">
-      <h1 className="pb-4">{`Welcome ${user}`}</h1>
-      <TabsDemo />
+      <h1 className="pb-36">{`${dbUser?.name}'s Account Page`}</h1>
+      <ChangeUserInfoForm userName={dbUser?.name} />
     </div>
   );
 }

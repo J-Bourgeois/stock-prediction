@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
+import { changeName, changeEmail, changePassword } from "@/actions";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,30 +9,33 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useActionState } from "react";
 
-import { useFormStatus } from "react-dom"
+import {  useFormStatus } from "react-dom";
 
+interface UserInfoProps {
+  userName: string | undefined,
+};
 
-export const TabsDemo = () => {
+export function ChangeUserInfoForm({ userName }: UserInfoProps) {
 
+  const [nameState, nameAction] = useActionState(changeName, undefined);
+  const [emailState, emailAction] = useActionState(changeEmail, undefined);
+  const [passwordState, passwordAction] = useActionState(changePassword, undefined);
 
   return (
-    <div className="flex w-full max-w-sm flex-col gap-6">
-      <Tabs defaultValue="account">
+    <div className="flex w-full max-w-xs flex-col gap-6">
+      <Tabs defaultValue="name">
         <TabsList>
-          <TabsTrigger value="account">Account</TabsTrigger>
+          <TabsTrigger value="name">Name</TabsTrigger>
+          <TabsTrigger value="email">Email</TabsTrigger>
           <TabsTrigger value="password">Password</TabsTrigger>
         </TabsList>
-        <TabsContent value="account">
+        <TabsContent value="name">
           <Card>
             <CardHeader>
               <CardTitle>Account</CardTitle>
@@ -40,14 +44,32 @@ export const TabsDemo = () => {
                 done.
               </CardDescription>
             </CardHeader>
+            <CardContent>
+              <form action="">
+
+              </form>
+            </CardContent>
+            <CardFooter>
+              <Button>Save changes</Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+        <TabsContent value="email">
+          <Card>
+            <CardHeader>
+              <CardTitle>Email</CardTitle>
+              <CardDescription>
+                Change your email here. After saving, you&apos;ll be logged out.
+              </CardDescription>
+            </CardHeader>
             <CardContent className="grid gap-6 p-2">
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-name">Name</Label>
-                <Input id="tabs-demo-name" defaultValue="Pedro Duarte" />
+                <Label htmlFor="tabs-demo-current">Current Email</Label>
+                <Input id="tabs-demo-name" defaultValue="" />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-username">Username</Label>
-                <Input id="tabs-demo-username" defaultValue="@peduarte" />
+                <Label htmlFor="tabs-demo-new">New Email</Label>
+                <Input id="tabs-demo-username" defaultValue="" />
               </div>
             </CardContent>
             <CardFooter>
@@ -66,11 +88,11 @@ export const TabsDemo = () => {
             </CardHeader>
             <CardContent className="grid gap-6 p-2">
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-current">Current password</Label>
+                <Label htmlFor="tabs-demo-current">Current Password</Label>
                 <Input id="tabs-demo-current" type="password" />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-new">New password</Label>
+                <Label htmlFor="tabs-demo-new">New Password</Label>
                 <Input id="tabs-demo-new" type="password" />
               </div>
             </CardContent>
@@ -81,8 +103,8 @@ export const TabsDemo = () => {
         </TabsContent>
       </Tabs>
     </div>
-  )
-}
+  );
+};
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -96,4 +118,3 @@ function SubmitButton() {
     </button>
   );
 }
-
