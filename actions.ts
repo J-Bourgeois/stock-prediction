@@ -201,3 +201,7 @@ export async function removePortfolioStock(stockTicker: string) {
     },
   });
 }
+
+export async function changeName(prevState: any, formdata: FormData) {
+  
+}
