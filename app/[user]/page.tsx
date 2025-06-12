@@ -23,8 +23,9 @@ export default async function User({ params }: { params: { user: string } }) {
 
   return (
     <div className="flex flex-col items-center mt-6 w-full">
-      <h1 className="pb-36">{`${dbUser?.name}'s Account Page`}</h1>
-      <ChangeUserInfoForm userName={dbUser?.name} />
+      <h1 className="pb-12">{`${dbUser?.name}'s Account Page`}</h1>
+      <h3 className="pb-12">Use forms below to change account information</h3>
+      <ChangeUserInfoForm userName={dbUser?.name} userEmail={dbUser?.email}/>
     </div>
   );
 }

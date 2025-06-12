@@ -1,31 +1,45 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { changeName, changeEmail, changePassword } from "@/actions";
-import { Button } from "@/components/ui/button";
+import { useSearchParams } from "next/navigation";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 
-import {  useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
+import { toast } from "sonner";
 
 interface UserInfoProps {
-  userName: string | undefined,
-};
+  userName: string | undefined;
+  userEmail: string | undefined;
+}
 
-export function ChangeUserInfoForm({ userName }: UserInfoProps) {
-
+export function ChangeUserInfoForm({ userName, userEmail }: UserInfoProps) {
   const [nameState, nameAction] = useActionState(changeName, undefined);
   const [emailState, emailAction] = useActionState(changeEmail, undefined);
-  const [passwordState, passwordAction] = useActionState(changePassword, undefined);
+  const [passwordState, passwordAction] = useActionState(
+    changePassword,
+    undefined
+  );
+
+  const searchParams = useSearchParams();
+  const nameChangeSuccess = searchParams.get("nameChange") === "success";
+
+  useEffect(() => {
+    if (nameChangeSuccess) {
+      toast("Name succesfully changed!");
+    }
+  }, [nameChangeSuccess]);
 
   return (
     <div className="flex w-full max-w-xs flex-col gap-6">
@@ -45,13 +59,37 @@ export function ChangeUserInfoForm({ userName }: UserInfoProps) {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form action="">
-
+              <form action={nameAction} autoComplete="on">
+                <div className="grid gap-6 p-2">
+                  <div className="grid gap-3">
+                    <Label htmlFor="currentName">Current Name</Label>
+                    <Input
+                      id="currentName"
+                      name="currentName"
+                      defaultValue={userName}
+                      readOnly
+                    />
+                    {nameState?.errors?.currentName && (
+                      <p className="text-sm text-red-500">
+                        {nameState.errors.currentName}
+                      </p>
+                    )}
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="newName">New Name</Label>
+                    <Input id="newName" name="newName" defaultValue="" />
+                    {nameState?.errors?.newName && (
+                      <p className="text-sm text-red-500">
+                        {nameState.errors.newName}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="flex pt-6 -mr-6">
+                  <SubmitButton />
+                </div>
               </form>
             </CardContent>
-            <CardFooter>
-              <Button>Save changes</Button>
-            </CardFooter>
           </Card>
         </TabsContent>
         <TabsContent value="email">
@@ -62,19 +100,28 @@ export function ChangeUserInfoForm({ userName }: UserInfoProps) {
                 Change your email here. After saving, you&apos;ll be logged out.
               </CardDescription>
             </CardHeader>
-            <CardContent className="grid gap-6 p-2">
-              <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-current">Current Email</Label>
-                <Input id="tabs-demo-name" defaultValue="" />
-              </div>
-              <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-new">New Email</Label>
-                <Input id="tabs-demo-username" defaultValue="" />
-              </div>
+            <CardContent>
+              <form action={emailAction} autoComplete="on">
+                <div className="grid gap-6 p-2">
+                  <div className="grid gap-3">
+                    <Label htmlFor="currentEmail">Current Email</Label>
+                    <Input
+                      id="currentEmail"
+                      name="currentEmail"
+                      defaultValue={userEmail}
+                      readOnly
+                    />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="newEmail">New Email</Label>
+                    <Input id="newEmail" name="newEmail" defaultValue="" />
+                  </div>
+                </div>
+                <div className="flex pt-6 -mr-6">
+                  <SubmitButton />
+                </div>
+              </form>
             </CardContent>
-            <CardFooter>
-              <Button>Save changes</Button>
-            </CardFooter>
           </Card>
         </TabsContent>
         <TabsContent value="password">
@@ -86,25 +133,37 @@ export function ChangeUserInfoForm({ userName }: UserInfoProps) {
                 out.
               </CardDescription>
             </CardHeader>
-            <CardContent className="grid gap-6 p-2">
-              <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-current">Current Password</Label>
-                <Input id="tabs-demo-current" type="password" />
-              </div>
-              <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-new">New Password</Label>
-                <Input id="tabs-demo-new" type="password" />
-              </div>
+            <CardContent>
+              <form action={passwordAction} autoComplete="on">
+                <div className="grid gap-6 p-2">
+                  <div className="grid gap-3">
+                    <Label htmlFor="currentPassword">Current Password</Label>
+                    <Input
+                      id="currentPassword"
+                      name="currentPassword"
+                      defaultValue=""
+                    />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="newPassword">New Password</Label>
+                    <Input
+                      id="newPassword"
+                      name="newPassword"
+                      defaultValue=""
+                    />
+                  </div>
+                </div>
+                <div className="flex pt-6 -mr-6">
+                  <SubmitButton />
+                </div>
+              </form>
             </CardContent>
-            <CardFooter>
-              <Button>Save password</Button>
-            </CardFooter>
           </Card>
         </TabsContent>
       </Tabs>
     </div>
   );
-};
+}
 
 function SubmitButton() {
   const { pending } = useFormStatus();

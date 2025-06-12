@@ -27,6 +27,26 @@ const logInSchema = z.object({
     .trim(),
 });
 
+const nameSchema = z.object({
+  currentName: z
+    .string()
+    .min(2, { message: "Name must be at least 2 characters long" }),
+  newName: z
+    .string()
+    .min(2, { message: "Name must be at least 2 characters long" }),
+});
+
+const emailSchema = z.object({
+  email: z.string().email().trim(),
+});
+
+const passwordSchema = z.object({
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters long" })
+    .trim(),
+});
+
 export async function signUp(prevState: any, formdata: FormData) {
   const parsed = signupSchema.safeParse(Object.fromEntries(formdata));
 
@@ -131,7 +151,7 @@ export async function addPortfolioStock(stockTicker: string) {
   }
 
   const alreadyHaveStock = usersPortfolio?.stockSelections.some((selection) => {
-     return selection.stock.symbol === stockTicker;
+    return selection.stock.symbol === stockTicker;
   });
 
   if (alreadyHaveStock) {
@@ -153,7 +173,7 @@ export async function addPortfolioStock(stockTicker: string) {
     },
   });
 
-  return { message: "Stock added to portfolio!"};
+  return { message: "Stock added to portfolio!" };
 }
 
 export async function removePortfolioStock(stockTicker: string) {
@@ -197,19 +217,68 @@ export async function removePortfolioStock(stockTicker: string) {
 
   await prisma.stocksSelection.delete({
     where: {
-      id: stockToDelete.id
+      id: stockToDelete.id,
     },
   });
 }
 
 export async function changeName(prevState: any, formdata: FormData) {
+  const result = nameSchema.safeParse(Object.fromEntries(formdata));
+
+  if (!result.success) {
+    return { errors: result.error.flatten().fieldErrors };
+  }
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  const session = await verifyJwt(token);
+
+  if (!session) return;
+
+  const { email } = session as { email: string };
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) {
+    return {
+      errors: {
+        currentName: ["User not found. Try again later"],
+      },
+    };
+  }
+
+  if (result.data.currentName !== user?.name) {
+    return {
+      errors: {
+        currentName: ["Current name doesn't match name on file"],
+      },
+    };
+  }
+
+  if (result.data.currentName === result.data.newName) {
+    return {
+      errors: {
+        currentName: ["Current name cannot be same as new name"],
+        newName: ["Current name cannot be same as new name"],
+      },
+    };
+  }
+  
+    await prisma.user.update({
+      where: {
+        email: email,
+      },
+      data: {
+        name: result.data.newName,
+      },
+    });
+    redirect(`/${user.id}?nameChange=success`);
   
 }
 
-export async function changeEmail(prevState: any, formdata: FormData) {
+export async function changeEmail(prevState: any, formdata: FormData) {}
 
-}
-
-export async function changePassword(prevState: any, formdata: FormData) {
-  
-}
+export async function changePassword(prevState: any, formdata: FormData) {}
