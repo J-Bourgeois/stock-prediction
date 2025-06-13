@@ -38,7 +38,7 @@ const nameSchema = z.object({
 
 const emailSchema = z.object({
   currentEmail: z.string().email().trim(),
-  newEmail: z.string().email().trim()
+  newEmail: z.string().email().trim(),
 });
 
 const passwordSchema = z.object({
@@ -49,7 +49,7 @@ const passwordSchema = z.object({
   newPassword: z
     .string()
     .min(6, { message: "Password must be at least 6 characters long" })
-    .trim()
+    .trim(),
 });
 
 export async function signUp(prevState: any, formdata: FormData) {
@@ -121,7 +121,6 @@ export async function logIn(prevState: any, formdata: FormData) {
 
 export async function logOut() {
   (await cookies()).delete("token");
-  /* redirect("/"); */
 }
 
 export async function addPortfolioStock(stockTicker: string) {
@@ -271,18 +270,17 @@ export async function changeName(prevState: any, formdata: FormData) {
       },
     };
   }
-  
-    await prisma.user.update({
-      where: {
-        email: email,
-      },
-      data: {
-        name: result.data.newName,
-      },
-    });
 
-    return { success: true}
-  
+  await prisma.user.update({
+    where: {
+      email: email,
+    },
+    data: {
+      name: result.data.newName,
+    },
+  });
+
+  return { success: true };
 }
 
 export async function changeEmail(prevState: any, formdata: FormData) {
@@ -304,7 +302,7 @@ export async function changeEmail(prevState: any, formdata: FormData) {
   const user = await prisma.user.findUnique({
     where: { email },
   });
-  
+
   if (!user) {
     return {
       errors: {
@@ -316,32 +314,31 @@ export async function changeEmail(prevState: any, formdata: FormData) {
   if (result.data.currentEmail !== user?.email) {
     return {
       errors: {
-        currentEmail: ["Current email doesn't match email on file"]
-      }
-    }
-  };
+        currentEmail: ["Current email doesn't match email on file"],
+      },
+    };
+  }
 
   if (result.data.currentEmail === result.data.newEmail) {
     return {
       errors: {
         currentEmail: ["Current email cannot be the same as new email"],
-        newEmail: ["Current email cannot be the same as new email"]
-      }
-    }
+        newEmail: ["Current email cannot be the same as new email"],
+      },
+    };
   }
 
   await prisma.user.update({
     where: {
-      email: email
+      email: email,
     },
     data: {
-      email: result.data.newEmail
-    }
+      email: result.data.newEmail,
+    },
   });
 
   logOut();
-  redirect("/login?emailChange=success")
-
+  redirect("/login?emailChange=success");
 }
 
 export async function changePassword(prevState: any, formdata: FormData) {
@@ -350,6 +347,8 @@ export async function changePassword(prevState: any, formdata: FormData) {
   if (!result.success) {
     return { errors: result.error.flatten().fieldErrors };
   }
+
+  const { currentPassword, newPassword } = result.data;
 
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
@@ -363,12 +362,50 @@ export async function changePassword(prevState: any, formdata: FormData) {
   const user = await prisma.user.findUnique({
     where: { email },
   });
-  
+
   if (!user) {
     return {
       errors: {
-        currentPassword: ["User not found. Try again later"],
+        currentPassword: ["User not found. Please try again"],
+        newPassword: ["User not found. Please try again"],
       },
     };
   }
+
+  const isCurrentPasswordValid = await compare(
+    currentPassword,
+    user.hashedPassword
+  );
+  if (!isCurrentPasswordValid) {
+    return {
+      errors: {
+        currentPassword: ["Current password is incorrect"],
+      },
+    };
+  }
+
+  const isSamePassword = await compare(newPassword, user.hashedPassword);
+  if (isSamePassword) {
+    return {
+      errors: {
+        newPassword: [
+          "New password must be diffrent from the current password",
+        ],
+      },
+    };
+  }
+
+  const newHashedPassword = await hash(newPassword, 10);
+
+  await prisma.user.update({
+    where: {
+      email,
+    },
+    data: {
+      hashedPassword: newHashedPassword,
+    },
+  });
+
+  logOut();
+  redirect("/login?passwordChange=success");
 }

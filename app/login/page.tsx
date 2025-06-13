@@ -10,6 +10,7 @@ export default function loginPage() {
     const searchParams = useSearchParams();
     const signupSuccess = searchParams.get("signup") === "success";
     const emailChangeSuccess = searchParams.get("emailChange") === "success";
+    const passwordChangeSuccess = searchParams.get("passwordChange") === "success";
 
     useEffect(() => {
         if (signupSuccess) {
@@ -20,7 +21,11 @@ export default function loginPage() {
           toast("Email changed! Please log back in")
         }
 
-    }, [signupSuccess, emailChangeSuccess]);
+        if (passwordChangeSuccess) {
+          toast("Password changed! Please log back in")
+        }
+
+    }, [signupSuccess, emailChangeSuccess, passwordChangeSuccess]);
 
 
   return (

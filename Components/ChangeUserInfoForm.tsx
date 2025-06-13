@@ -149,7 +149,13 @@ export function ChangeUserInfoForm({ userName, userEmail }: UserInfoProps) {
                       id="currentPassword"
                       name="currentPassword"
                       defaultValue=""
+                      type="password"
                     />
+                    {passwordState?.errors?.currentPassword && (
+                      <p className="text-sm text-red-500">
+                        {passwordState.errors.currentPassword}
+                      </p>
+                    )}
                   </div>
                   <div className="grid gap-3">
                     <Label htmlFor="newPassword">New Password</Label>
@@ -157,7 +163,13 @@ export function ChangeUserInfoForm({ userName, userEmail }: UserInfoProps) {
                       id="newPassword"
                       name="newPassword"
                       defaultValue=""
+                      type="password"
                     />
+                    {passwordState?.errors?.newPassword && (
+                      <p className="text-sm text-red-500">
+                        {passwordState.errors.newPassword}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="flex pt-6 -mr-6">
