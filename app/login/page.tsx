@@ -9,12 +9,18 @@ import { toast } from "sonner";
 export default function loginPage() {
     const searchParams = useSearchParams();
     const signupSuccess = searchParams.get("signup") === "success";
+    const emailChangeSuccess = searchParams.get("emailChange") === "success";
 
     useEffect(() => {
         if (signupSuccess) {
             toast("User created! Please Sign in");
         }
-    }, [signupSuccess]);
+
+        if (emailChangeSuccess) {
+          toast("Email changed! Please log back in")
+        }
+
+    }, [signupSuccess, emailChangeSuccess]);
 
 
   return (

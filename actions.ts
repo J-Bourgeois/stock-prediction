@@ -37,14 +37,19 @@ const nameSchema = z.object({
 });
 
 const emailSchema = z.object({
-  email: z.string().email().trim(),
+  currentEmail: z.string().email().trim(),
+  newEmail: z.string().email().trim()
 });
 
 const passwordSchema = z.object({
-  password: z
+  currentPassword: z
     .string()
     .min(6, { message: "Password must be at least 6 characters long" })
     .trim(),
+  newPassword: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters long" })
+    .trim()
 });
 
 export async function signUp(prevState: any, formdata: FormData) {
@@ -116,7 +121,7 @@ export async function logIn(prevState: any, formdata: FormData) {
 
 export async function logOut() {
   (await cookies()).delete("token");
-  redirect("/");
+  /* redirect("/"); */
 }
 
 export async function addPortfolioStock(stockTicker: string) {
@@ -275,10 +280,95 @@ export async function changeName(prevState: any, formdata: FormData) {
         name: result.data.newName,
       },
     });
-    redirect(`/${user.id}?nameChange=success`);
+
+    return { success: true}
   
 }
 
-export async function changeEmail(prevState: any, formdata: FormData) {}
+export async function changeEmail(prevState: any, formdata: FormData) {
+  const result = emailSchema.safeParse(Object.fromEntries(formdata));
 
-export async function changePassword(prevState: any, formdata: FormData) {}
+  if (!result.success) {
+    return { errors: result.error.flatten().fieldErrors };
+  }
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  const session = await verifyJwt(token);
+
+  if (!session) return;
+
+  const { email } = session as { email: string };
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+  
+  if (!user) {
+    return {
+      errors: {
+        currentEmail: ["User not found. Try again later"],
+      },
+    };
+  }
+
+  if (result.data.currentEmail !== user?.email) {
+    return {
+      errors: {
+        currentEmail: ["Current email doesn't match email on file"]
+      }
+    }
+  };
+
+  if (result.data.currentEmail === result.data.newEmail) {
+    return {
+      errors: {
+        currentEmail: ["Current email cannot be the same as new email"],
+        newEmail: ["Current email cannot be the same as new email"]
+      }
+    }
+  }
+
+  await prisma.user.update({
+    where: {
+      email: email
+    },
+    data: {
+      email: result.data.newEmail
+    }
+  });
+
+  logOut();
+  redirect("/login?emailChange=success")
+
+}
+
+export async function changePassword(prevState: any, formdata: FormData) {
+  const result = passwordSchema.safeParse(Object.fromEntries(formdata));
+
+  if (!result.success) {
+    return { errors: result.error.flatten().fieldErrors };
+  }
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  const session = await verifyJwt(token);
+
+  if (!session) return;
+
+  const { email } = session as { email: string };
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+  
+  if (!user) {
+    return {
+      errors: {
+        currentPassword: ["User not found. Try again later"],
+      },
+    };
+  }
+}

@@ -1,6 +1,6 @@
 "use client";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 import { changeName, changeEmail, changePassword } from "@/actions";
 import { useSearchParams } from "next/navigation";
@@ -32,14 +32,11 @@ export function ChangeUserInfoForm({ userName, userEmail }: UserInfoProps) {
     undefined
   );
 
-  const searchParams = useSearchParams();
-  const nameChangeSuccess = searchParams.get("nameChange") === "success";
-
   useEffect(() => {
-    if (nameChangeSuccess) {
-      toast("Name succesfully changed!");
+    if (nameState?.success) {
+      toast("Name successfully changed!");
     }
-  }, [nameChangeSuccess]);
+  }, [nameState]);
 
   return (
     <div className="flex w-full max-w-xs flex-col gap-6">
@@ -111,10 +108,20 @@ export function ChangeUserInfoForm({ userName, userEmail }: UserInfoProps) {
                       defaultValue={userEmail}
                       readOnly
                     />
+                    {emailState?.errors?.currentEmail && (
+                      <p className="text-sm text-red-500">
+                        {emailState.errors.currentEmail}
+                      </p>
+                    )}
                   </div>
                   <div className="grid gap-3">
                     <Label htmlFor="newEmail">New Email</Label>
                     <Input id="newEmail" name="newEmail" defaultValue="" />
+                    {emailState?.errors?.newEmail && (
+                      <p className="text-sm text-red-500">
+                        {emailState.errors.newEmail}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="flex pt-6 -mr-6">
