@@ -9,17 +9,21 @@ import HomeStockPricesResponse from "@/components/HomeStockPricesResponse";
 import TimeSpanSelector from "@/components/TimeSpanSelector";
 import { AppDispatch } from "@/store/Store";
 import { homeStocksApi } from "@/app/types/homeStocksInterface";
+import { Button } from "./ui/button";
+import { redirect } from "next/navigation";
 
 interface Props {
   nvidiaStock: homeStocksApi;
   appleStock: homeStocksApi;
   microsoftStock: homeStocksApi;
+  isLoggedIn: boolean;
 }
 
 export default function HomeClientPage({
   nvidiaStock,
   appleStock,
   microsoftStock,
+  isLoggedIn,
 }: Props) {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -37,6 +41,13 @@ export default function HomeClientPage({
       <div className="absolute top-2 right-18">
         <TimeSpanSelector />
       </div>
+      {!isLoggedIn ? (
+        <div className="absolute top-2 left-14 w-[100px]">
+          <Button variant="outline" onClick={() => redirect("/signup")}>
+            Sign Up
+          </Button>
+        </div>
+      ) : null}
       <div className="relative flex flex-col xs:w-9/12 max-xs:min-w-sm mt-36">
         <HomeStockPricesResponse />
       </div>
