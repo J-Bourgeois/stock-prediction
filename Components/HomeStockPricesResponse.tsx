@@ -9,7 +9,11 @@ import { ChartSkeleton } from "./ui/ChartSkeleton";
 import { addPortfolioStock } from "@/actions";
 import { toast } from "sonner";
 
-const HomeStockPricesResponse = () => {
+interface HomeStockProps {
+  isLoggedIn: boolean;
+}
+
+const HomeStockPricesResponse = ({ isLoggedIn }: HomeStockProps) => {
   const homeStocksNvidia = useSelector(
     (state: RootState) => state.homeStocksNvidia
   );
@@ -60,11 +64,15 @@ const HomeStockPricesResponse = () => {
         <div className="pt-4">
           <Button
             onClick={async () => {
-              try {
-                addPortfolioStock(homeStocksNvidia.data[0].ticker);
-                toast.success("Stock added to portfolio!");
-              } catch (error) {
-                toast.error("Failed to add stock");
+              if (isLoggedIn) {
+                try {
+                  await addPortfolioStock(homeStocksNvidia.data[0].ticker);
+                  toast.success("Stock added to portfolio!");
+                } catch (error) {
+                  toast.error("Failed to add stock");
+                }
+              } else {
+                toast("Please log in to add stock to portfolio");
               }
             }}
           >
@@ -83,11 +91,15 @@ const HomeStockPricesResponse = () => {
         <div className="pt-4">
           <Button
             onClick={async () => {
-              try {
-                addPortfolioStock(homeStocksApple.data[0].ticker);
-                toast.success("Stock added to portfolio!");
-              } catch (error) {
-                toast.error("Failed to add stock");
+              if (isLoggedIn) {
+                try {
+                  addPortfolioStock(homeStocksApple.data[0].ticker);
+                  toast.success("Stock added to portfolio!");
+                } catch (error) {
+                  toast.error("Failed to add stock");
+                }
+              } else {
+                toast("Please log in to add stock to portfolio");
               }
             }}
           >
@@ -109,11 +121,15 @@ const HomeStockPricesResponse = () => {
         <div className="pt-4">
           <Button
             onClick={async () => {
-              try {
-                addPortfolioStock(homeStocksMicrosoft.data[0].ticker);
-                toast.success("Stock added to portfolio!");
-              } catch (error) {
-                toast.error("Failed to add stock");
+              if (isLoggedIn) {
+                try {
+                  addPortfolioStock(homeStocksMicrosoft.data[0].ticker);
+                  toast.success("Stock added to portfolio!");
+                } catch (error) {
+                  toast.error("Failed to add stock");
+                }
+              } else {
+                toast("Please log in to add stock to portfolio");
               }
             }}
           >

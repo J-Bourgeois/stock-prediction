@@ -49,7 +49,7 @@ export default function HomeClientPage({
         </div>
       ) : null}
       <div className="relative flex flex-col xs:w-9/12 max-xs:min-w-sm mt-36">
-        <HomeStockPricesResponse />
+        <HomeStockPricesResponse isLoggedIn={isLoggedIn} />
       </div>
     </div>
   );
