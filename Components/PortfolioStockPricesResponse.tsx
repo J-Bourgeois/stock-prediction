@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/Store";
 
@@ -24,6 +24,7 @@ import { Button } from "./ui/button";
 import ResponsiveButton from "./ResponsiveButton";
 import { homeStocksApi } from "@/app/types/homeStocksInterface";
 import { removePortfolioStock } from "@/actions";
+import { toast } from "sonner";
 
 interface PortfolioStockProps {
   stockData: {
@@ -113,7 +114,14 @@ export default function PortfolioStockPricesResponse({
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
-                onClick={() => removePortfolioStock(stockData.symbol)}
+                onClick={async () => {
+                  try {
+                    await removePortfolioStock(stockData.symbol);
+                    toast.success("Stock successfully removed!");
+                  } catch (error) {
+                      toast.error("Failed to remove stock")
+                  }
+                }}
               >
                 Continue
               </AlertDialogAction>
