@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 import { ChartSkeleton } from "./ui/ChartSkeleton";
 import { addPortfolioStock } from "@/actions";
+import { toast } from "sonner";
 
 const HomeStockPricesResponse = () => {
   const homeStocksNvidia = useSelector(
@@ -57,7 +58,16 @@ const HomeStockPricesResponse = () => {
           <StocksChart chartData={homeStocksNvidia} chartConfig={chartConfig} />
         </div>
         <div className="pt-4">
-          <Button onClick={() => addPortfolioStock(homeStocksNvidia.data[0].ticker)}>
+          <Button
+            onClick={async () => {
+              try {
+                addPortfolioStock(homeStocksNvidia.data[0].ticker);
+                toast.success("Stock added to portfolio!");
+              } catch (error) {
+                toast.error("Failed to add stock");
+              }
+            }}
+          >
             <Plus /> Add stock to Portfolio
           </Button>
         </div>
@@ -71,7 +81,16 @@ const HomeStockPricesResponse = () => {
           <StocksChart chartData={homeStocksApple} chartConfig={chartConfig} />
         </div>
         <div className="pt-4">
-          <Button onClick={() => addPortfolioStock(homeStocksApple.data[0].ticker)}>
+          <Button
+            onClick={async () => {
+              try {
+                addPortfolioStock(homeStocksApple.data[0].ticker);
+                toast.success("Stock added to portfolio!");
+              } catch (error) {
+                toast.error("Failed to add stock");
+              }
+            }}
+          >
             <Plus /> Add stock to Portfolio
           </Button>
         </div>
@@ -88,7 +107,16 @@ const HomeStockPricesResponse = () => {
           />
         </div>
         <div className="pt-4">
-          <Button onClick={() => addPortfolioStock(homeStocksMicrosoft.data[0].ticker)}>
+          <Button
+            onClick={async () => {
+              try {
+                addPortfolioStock(homeStocksMicrosoft.data[0].ticker);
+                toast.success("Stock added to portfolio!");
+              } catch (error) {
+                toast.error("Failed to add stock");
+              }
+            }}
+          >
             <Plus /> Add stock to Portfolio
           </Button>
         </div>
