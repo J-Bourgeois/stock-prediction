@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 
 import { Button } from "./ui/button";
 
-export default function ResponsiveButton() {
+interface ResponsiveButtonProps {
+  onClick: () => Promise<void>;
+}
+
+export default function ResponsiveButton({ onClick }: ResponsiveButtonProps) {
   const [buttonText, setButtonText] = useState("");
 
   useEffect(() => {
@@ -24,5 +28,5 @@ export default function ResponsiveButton() {
       mediaQuery.removeEventListener("change", updateButtonText);
     };
   }, []);
-  return <Button>{buttonText}</Button>;
+  return <Button onClick={onClick}>{buttonText}</Button>;
 }

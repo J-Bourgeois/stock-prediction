@@ -52,6 +52,8 @@ export default function PortfolioStockPricesResponse({
 }: PortfolioStockProps) {
   const dispatch = useDispatch<AppDispatch>();
   const hasHydrated = useRef(false);
+  const [ollamaResponse, setOllamaResponse] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (hasHydrated.current) return;
@@ -98,7 +100,45 @@ export default function PortfolioStockPricesResponse({
         />
       </div>
       <div className="flex justify-between pt-4 w-full">
-        <ResponsiveButton />
+        <ResponsiveButton
+          onClick={async () => {
+            setIsLoading(true);
+            setOllamaResponse("");
+
+            try {
+              const res = await fetch("/api/llm", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ ticker: stockData.symbol }),
+              });
+
+              if (!res.body) {
+                throw new Error("No response stream found");
+              }
+
+              const reader = res.body.getReader();
+              const decoder = new TextDecoder("utf-8");
+              let result = "";
+
+              while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                result += decoder.decode(value);
+                setOllamaResponse((prev) => prev + decoder.decode(value));
+              }
+            } catch (error) {
+              console.error("AI request failed:", error);
+              setOllamaResponse(
+                "Something went wrong while fetching prediction."
+              );
+            } finally {
+              setIsLoading(false);
+            }
+          }}
+        />
         <AlertDialog>
           <AlertDialogTrigger asChild className="max-w-6/12">
             <Button variant="destructive">Remove Stock</Button>
@@ -119,7 +159,7 @@ export default function PortfolioStockPricesResponse({
                     await removePortfolioStock(stockData.symbol);
                     toast.success("Stock successfully removed!");
                   } catch (error) {
-                      toast.error("Failed to remove stock")
+                    toast.error("Failed to remove stock");
                   }
                 }}
               >

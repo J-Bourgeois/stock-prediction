@@ -25,3 +25,10 @@ export async function fetchMicrosoftStock() {
   );
   return await res.json();
 }
+
+export async function fetchNewsData(stockTicker: string) {
+  const res = await fetch(`https://api.stockdata.org/v1/news/all?symbols=${stockTicker}&language=en&api_token=${apiKey}`, 
+    { next: { revalidate: 3600 } }
+  );
+  return await res.json();
+}
