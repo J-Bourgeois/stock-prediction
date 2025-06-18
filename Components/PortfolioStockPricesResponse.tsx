@@ -25,6 +25,7 @@ import ResponsiveButton from "./ResponsiveButton";
 import { homeStocksApi } from "@/app/types/homeStocksInterface";
 import { removePortfolioStock } from "@/actions";
 import { toast } from "sonner";
+import { Span } from "next/dist/trace";
 
 interface PortfolioStockProps {
   stockData: {
@@ -54,6 +55,7 @@ export default function PortfolioStockPricesResponse({
   const hasHydrated = useRef(false);
   const [ollamaResponse, setOllamaResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showResponse, setShowResponse] = useState(false);
 
   useEffect(() => {
     if (hasHydrated.current) return;
@@ -104,6 +106,7 @@ export default function PortfolioStockPricesResponse({
           onClick={async () => {
             setIsLoading(true);
             setOllamaResponse("");
+            setShowResponse(true);
 
             try {
               const res = await fetch("/api/llm", {
@@ -169,6 +172,15 @@ export default function PortfolioStockPricesResponse({
           </AlertDialogContent>
         </AlertDialog>
       </div>
+      {showResponse && (
+        <div className="mt-4 w-full">
+          {isLoading ? (
+            <span>Thinking...</span>
+          ) : (
+            ollamaResponse || <span>No response yet</span>
+          )}
+        </div>
+      )}
     </div>
   );
 }
