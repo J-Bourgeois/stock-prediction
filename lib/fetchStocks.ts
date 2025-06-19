@@ -32,3 +32,10 @@ export async function fetchNewsData(stockTicker: string) {
   );
   return await res.json();
 }
+
+export async function fetchStockClosingPrices(stockTicker: string) {
+  const res = await fetch(`https://api.stockdata.org/v1/data/eod?symbols=${stockTicker}&sort=asc&api_token=${apiKey}`, 
+    { next: { revalidate: 3600 } }
+  );
+  return await res.json();
+};

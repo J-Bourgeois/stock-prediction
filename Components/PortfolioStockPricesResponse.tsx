@@ -129,8 +129,25 @@ export default function PortfolioStockPricesResponse({
                 const { done, value } = await reader.read();
                 if (done) break;
 
-                result += decoder.decode(value);
-                setOllamaResponse((prev) => prev + decoder.decode(value));
+                result += decoder.decode(value, { stream: true });
+
+                const lines = result.split("\n");
+                result = lines.pop()!;
+
+                for (const line of lines) {
+                  if (!line.trim()) continue;
+
+                  try {
+                    const json = JSON.parse(line);
+                    const token = json.response;
+
+                    if (!token !== undefined) {
+                      setOllamaResponse((prev) => prev + token);
+                    }
+                  } catch (error) {
+                    console.error("Error parsing JSON line:", error, line)
+                  }
+                };
               }
             } catch (error) {
               console.error("AI request failed:", error);
