@@ -111,7 +111,7 @@ export default function PortfolioStockPricesResponse({
             setShowResponse(true);
 
             try {
-              const res = await fetch("/api/llm", {
+              const res = await fetch("/api/LLM", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
