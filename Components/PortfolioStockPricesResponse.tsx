@@ -25,7 +25,7 @@ import ResponsiveButton from "./ResponsiveButton";
 import { homeStocksApi } from "@/app/types/homeStocksInterface";
 import { removePortfolioStock } from "@/actions";
 import { toast } from "sonner";
-import { Span } from "next/dist/trace";
+import ReactMarkdown from "react-markdown";
 
 interface PortfolioStockProps {
   stockData: {
@@ -82,6 +82,8 @@ export default function PortfolioStockPricesResponse({
 
     hasHydrated.current = true;
   }, [dispatch, stockData.symbol, nvidiaStock, appleStock, microsoftStock]);
+
+  
 
   return (
     <div className="relative pb-6 min-w-[300px] w-[80vw] max-w-[1200px] flex flex-col text-sm">
@@ -141,13 +143,13 @@ export default function PortfolioStockPricesResponse({
                     const json = JSON.parse(line);
                     const token = json.response;
 
-                    if (!token !== undefined) {
+                    if (token !== undefined) {
                       setOllamaResponse((prev) => prev + token);
                     }
                   } catch (error) {
-                    console.error("Error parsing JSON line:", error, line)
+                    console.error("Error parsing JSON line:", error, line);
                   }
-                };
+                }
               }
             } catch (error) {
               console.error("AI request failed:", error);
@@ -191,10 +193,13 @@ export default function PortfolioStockPricesResponse({
       </div>
       {showResponse && (
         <div className="mt-4 w-full">
+          <h3 className="mb-4">{`AI Response for ${stockData.name} :`}</h3>
           {isLoading ? (
             <span>Thinking...</span>
           ) : (
-            ollamaResponse || <span>No response yet</span>
+            <div className="bg-card rounded-xl border border-foreground p-2">
+              <ReactMarkdown>{ollamaResponse}</ReactMarkdown>
+            </div>
           )}
         </div>
       )}

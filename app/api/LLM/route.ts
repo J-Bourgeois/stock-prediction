@@ -42,10 +42,6 @@ export async function POST(req: Request): Promise<Response> {
   const newsRes: NewsDataProps = await fetchNewsData(ticker);
   const closeRes: ClosingPricesProps = await fetchStockClosingPrices(ticker);
 
-  /* if (!newsRes.data.length || closeRes.data.length) {
-    return new Response("Insufficient data to analyze", { status: 422 });
-  } */
-
   const allEntities = newsRes.data.flatMap((article) => article.entities);
   const sumOfScores = allEntities.reduce(
     (sum, entity) => sum + entity.sentiment_score,
@@ -142,6 +138,8 @@ export async function POST(req: Request): Promise<Response> {
             Guidelines:
             - Analyze the trend in the stock price data (e.g., uptrend, downtrend, volatility), and factor in the company tone. Then provide a simple recommendation:
             - Respons with a clear recommendation: Buy, Hold, or Avoid.
+            - Always have Buy, Hold or Avoid inside markdown for bold, for example **Buy**
+            - If there's some info that's not provided like current price, never show that it's not provided
             - Explain your reasoning in 1-2 short sentances.
 `;
 
