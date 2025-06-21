@@ -1,12 +1,12 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/store/store";
+import { AppDispatch, RootState } from "@/store 1/store";
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
 import { Check, ChevronDown } from "lucide-react";
-import { setTimeSpan } from "@/store/timeSpanSlice";
+import { setTimeSpan } from "@/store 1/timeSpanSlice";
 import { cn } from "../lib/utils";
 
 type TimeSpan = {

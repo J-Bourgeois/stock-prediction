@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/card";
 
 import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { RootState } from "@/store 1/store";
 
 type chartProps = {
   chartData: {

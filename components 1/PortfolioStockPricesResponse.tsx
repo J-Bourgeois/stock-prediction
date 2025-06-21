@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store/store";
+import { AppDispatch } from "@/store 1/store";
 
-import { hydrateHomeStocksNvidia } from "@/store/homeStocksNvidiaSlice";
-import { hydrateHomeStocksApple } from "@/store/homeStocksAppleSlice";
-import { hydrateHomeStocksMicrosoft } from "@/store/homeStocksMicrosoftSliceSlice";
+import { hydrateHomeStocksNvidia } from "@/store 1/homeStocksNvidiaSlice";
+import { hydrateHomeStocksApple } from "@/store 1/homeStocksAppleSlice";
+import { hydrateHomeStocksMicrosoft } from "@/store 1/homeStocksMicrosoftSliceSlice";
 
 import {
   AlertDialog,

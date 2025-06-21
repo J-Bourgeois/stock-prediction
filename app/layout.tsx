@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import StoreProvider from "../store/storeProvider";
+import StoreProvider from "../store 1/storeProvider";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 import { ThemeProvider } from "@/components/Theme-provider";

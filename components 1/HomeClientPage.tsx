@@ -2,12 +2,12 @@
 
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { hydrateHomeStocksNvidia } from "@/store/homeStocksNvidiaSlice";
-import { hydrateHomeStocksApple } from "@/store/homeStocksAppleSlice";
-import { hydrateHomeStocksMicrosoft } from "@/store/homeStocksMicrosoftSliceSlice";
+import { hydrateHomeStocksNvidia } from "@/store 1/homeStocksNvidiaSlice";
+import { hydrateHomeStocksApple } from "@/store 1/homeStocksAppleSlice";
+import { hydrateHomeStocksMicrosoft } from "@/store 1/homeStocksMicrosoftSliceSlice";
 import HomeStockPricesResponse from "@/components/HomeStockPricesResponse";
 import TimeSpanSelector from "@/components/TimeSpanSelector";
-import { AppDispatch } from "@/store/store";
+import { AppDispatch } from "@/store 1/store";
 import { homeStocksApi } from "@/app/types/homeStocksInterface";
 import { Button } from "./ui/button";
 import { redirect } from "next/navigation";
