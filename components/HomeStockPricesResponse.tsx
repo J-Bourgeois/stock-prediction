@@ -1,7 +1,7 @@
 "use client";
 
 import { useSelector } from "react-redux";
-import { RootState } from "@/store 1/store";
+import { RootState } from "@/store/store";
 import { StocksChart } from "./StocksChart";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
