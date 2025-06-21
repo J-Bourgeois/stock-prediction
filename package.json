@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dev:setup": "npm install && npx prisma migrate deploy && npx prisma generate && npx prisma db seed"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",
