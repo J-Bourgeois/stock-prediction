@@ -1,0 +1,17 @@
+// prisma/tsconfig.seed.json
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2017",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noEmit": true,
+    "baseUrl": "../",
+    "paths": {
+      "@/*": ["*"]
+    }
+  },
+  "include": ["seed.ts"]
+}
+
