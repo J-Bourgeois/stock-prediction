@@ -1,57 +1,68 @@
-<div align="center" class="text-center">
-<h1>STOCK-PREDICITION</h1>
-<p><em>Predict Tomorrow’s Stocks Today, Instantly and Confidently</em></p>
+<div align="center">
+  <h1>AI STOCK-PREDICITION</h1>
+  <p><em>Use local LLM's to predict market trends & advise user if they should Buy, Hold or Sell</em></p>
 
-<img alt="last-commit" src="./GitDocify_files/stock-predicition" class="inline-block mx-1" style="margin: 0px 2px;">
-<img alt="repo-top-language" src="./GitDocify_files/stock-predicition(1)" class="inline-block mx-1" style="margin: 0px 2px;">
-<img alt="repo-language-count" src="./GitDocify_files/stock-predicition(2)" class="inline-block mx-1" style="margin: 0px 2px;">
-<p><em>Built with the tools and technologies:</em></p>
-<img alt="JSON" src="./GitDocify_files/JSON-000000.svg" class="inline-block mx-1" style="margin: 0px 2px;">
-<img alt="Markdown" src="./GitDocify_files/Markdown-000000.svg" class="inline-block mx-1" style="margin: 0px 2px;">
-<img alt="Ollama" src="./GitDocify_files/Ollama-000000.svg" class="inline-block mx-1" style="margin: 0px 2px;">
-<img alt="npm" src="./GitDocify_files/npm-CB3837.svg" class="inline-block mx-1" style="margin: 0px 2px;">
-<img alt="JavaScript" src="./GitDocify_files/JavaScript-F7DF1E.svg" class="inline-block mx-1" style="margin: 0px 2px;">
-<br>
-<img alt="React" src="./GitDocify_files/React-61DAFB.svg" class="inline-block mx-1" style="margin: 0px 2px;">
-<img alt="TypeScript" src="./GitDocify_files/TypeScript-3178C6.svg" class="inline-block mx-1" style="margin: 0px 2px;">
-<img alt="tsnode" src="./GitDocify_files/tsnode-3178C6.svg" class="inline-block mx-1" style="margin: 0px 2px;">
-<img alt="Prisma" src="./GitDocify_files/Prisma-2D3748.svg" class="inline-block mx-1" style="margin: 0px 2px;">
-<img alt="Zod" src="./GitDocify_files/Zod-3E67B1.svg" class="inline-block mx-1" style="margin: 0px 2px;">
+  <!-- Repository Metadata Badges (optional: replace with actual public badge URLs if available) -->
+  <img alt="last-commit" src="https://img.shields.io/github/last-commit/J-Bourgeois/stock-predicition" />
+  <img alt="repo-top-language" src="https://img.shields.io/github/languages/top/J-Bourgeois/stock-predicition" />
+  <img alt="repo-language-count" src="https://img.shields.io/github/languages/count/J-Bourgeois/stock-predicition" />
+
+  <p><em>Built with:</em></p>
+  <img alt="JSON" src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white" />
+  <img alt="Markdown" src="https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white" />
+  <img alt="Ollama" src="https://img.shields.io/badge/Ollama-FFFFFF?style=for-the-badge&logo=ollama&logoColor=black" />
+  <img alt="npm" src="https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white" />
+  <img alt="next" src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
+  <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+  <img alt="React" src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img alt="redux" src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=white" />
+  <img alt="ts-node" src="https://img.shields.io/badge/ts--node-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img alt="Prisma" src="https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" />
+  <img alt="Zod" src="https://img.shields.io/badge/Zod-3E67B1?style=for-the-badge&logoColor=white" />
 </div>
-<br>
-<hr>
-<h2>Table of Contents</h2>
-<ul class="list-disc pl-4 my-0">
-<li class="my-0"><a href="https://gitdocify.com/readme/stock-predicition#overview">Overview</a></li>
-<li class="my-0"><a href="https://gitdocify.com/readme/stock-predicition#getting-started">Getting Started</a>
-<ul class="list-disc pl-4 my-0">
-<li class="my-0"><a href="https://gitdocify.com/readme/stock-predicition#prerequisites">Prerequisites</a></li>
-<li class="my-0"><a href="https://gitdocify.com/readme/stock-predicition#installation">Installation</a></li>
-<li class="my-0"><a href="https://gitdocify.com/readme/stock-predicition#usage">Usage</a></li>
-<li class="my-0"><a href="https://gitdocify.com/readme/stock-predicition#testing">Testing</a></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2>Overview</h2>
-<p>Stock-predicition is a versatile developer toolset designed to streamline the creation of real-time stock analysis and portfolio management applications. It combines powerful data fetching, user authentication, and a rich component library to accelerate development.</p>
-<p><strong>Why stock-predicition?</strong></p>
-<p>This project helps developers build scalable, data-driven financial apps with integrated backend and frontend features. The core benefits include:</p>
-<ul class="list-disc pl-4 my-0">
-<li class="my-0">🧩 <strong>Data Integration:</strong> Fetch real-time stock prices, historical data, and news for comprehensive analysis.</li>
-<li class="my-0">🔐 <strong>User Management:</strong> Secure authentication, session handling, and personalized profiles.</li>
-<li class="my-0">📊 <strong>Rich UI Components:</strong> Interactive charts, responsive buttons, and modals for engaging user experiences.</li>
-<li class="my-0">⚙️ <strong>State Management:</strong> Efficient Redux slices for synchronized data and UI states.</li>
-<li class="my-0">🎨 <strong>Themed &amp; Responsive:</strong> Seamless theming, device detection, and accessible design for all users.</li>
-</ul>
-<hr>
-<h2>Getting Started</h2>
-<h3>Prerequisites</h3>
-<p>This project requires the following dependencies:</p>
-<ul class="list-disc pl-4 my-0">
-<li class="my-0"><strong>Programming Language:</strong> TypeScript</li>
-<li class="my-0"><strong>Package Manager:</strong> Npm</li>
-</ul>
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Usage](#usage)
+
+---
+
+## Overview
+
+**Stock-predicition** is a developer toolset built for real-time stock analysis and portfolio management. It combines data pipelines, UI components, and authentication for full-stack financial applications.
+
+### Why use this?
+
+- 🧩 **Data Integration:** Real-time prices, history, news.
+- 🔐 **User Management:** Secure authentication and sessions.
+- 📊 **Rich UI:** Interactive charts and modals.
+- ⚙️ **State Management:** Efficient Redux-based state handling.
+- 🎨 **Responsive Design:** Mobile-ready and theme-aware.
+
+---
+
+This project uses API's from <a href="www.stockdata.org/">stockdata.org</a> for Closing prices for last 180 days & news data for stock relevance.
+<img alt="stockdata.org" src="https://www.stockdata.org/website_assets/img/stockdata.org-logo-dark-2.svg"></img>
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+Ensure the following are installed:
+
+- **Node.js** (v18+)
+- **npm**
+- **Ollama** (installed and running)
+> **Note**: App is setup to use the default <code>localhost:11434/api/generate</code> path. If your Ollama instance uses a diffrent path, adjust <code>app/api/LLM/route.ts</code> to target your Ollama endpoint.
 <h3>Installation</h3>
 <p>Build stock-predicition from the source and install dependencies:</p>
 <ol>
@@ -61,27 +72,25 @@
 </code></pre>
 </li>
 <li class="my-0">
-<p><strong>Navigate to the project directory:</strong></p>
-<pre><code class="language-sh">❯ cd stock-predicition
-</code></pre>
+<p><strong>Create <code>.env</code> file at project root following <code>.env.template</code> to create SQlite Database. </strong></p>
+</li>
+<li class="my-0">
+<p><strong>Create <code>.env.local</code> file at project route following <code>.env.template</code>, insert <a href="https://www.stockdata.org/">stockdata.org</a> API Key inside <code>.env.local</code> file as <code>STOCKDATA_API_KEY</code>, along with your <code>JWT_SECRET</code> which is used to sign the users JWT.</strong></p>
 </li>
 <li class="my-0">
 <p><strong>Install the dependencies:</strong></p>
 </li>
 </ol>
 <p><strong>Using <a href="https://www.npmjs.com/">npm</a>:</strong></p>
-<pre><code class="language-sh">❯ npm install
+<pre><code class="language-sh">❯ npm run dev:setup
 </code></pre>
+
+> **Note**: The above command is a custom script that will install all dependecies, perform prisma migration, generate prisma client & seed the database with the 3 default stocks: <code>NVDA</code>, <code>AAPL</code> & <code>MSFT</code>.
+
 <h3>Usage</h3>
 <p>Run the project with:</p>
 <p><strong>Using <a href="https://www.npmjs.com/">npm</a>:</strong></p>
-<pre><code class="language-sh">npm start
+<pre><code class="language-sh">npm run dev
 </code></pre>
-<h3>Testing</h3>
-<p>Stock-predicition uses the {<strong>test_framework</strong>} test framework. Run the test suite with:</p>
-<p><strong>Using <a href="https://www.npmjs.com/">npm</a>:</strong></p>
-<pre><code class="language-sh">npm test
-</code></pre>
-<hr>
-<div align="left" class=""><a href="https://github.com/J-Bourgeois/stock-predicition#top">⬆ Return</a></div>
-<hr></div></div></div></div><div data-state="inactive" data-orientation="horizontal" role="tabpanel" aria-labelledby="radix-:r15:-trigger-edit" hidden="" id="radix-:r15:-content-edit" tabindex="0" class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"></div></div></div></div></div></div></main></div><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"></section></div>
+
+</div></div></div></div><div data-state="inactive" data-orientation="horizontal" role="tabpanel" aria-labelledby="radix-:r15:-trigger-edit" hidden="" id="radix-:r15:-content-edit" tabindex="0" class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"></div></div></div></div></div></div></main></div><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"></section></div>
