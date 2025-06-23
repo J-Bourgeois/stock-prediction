@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>AI STOCK-PREDICITION</h1>
+  <h1>AI STOCK-PREDICTION</h1>
   <p><em>Use local LLM's to predict market trends & advise user if they should Buy, Hold or Sell</em></p>
 
   <!-- Repository Metadata Badges (optional: replace with actual public badge URLs if available) -->
