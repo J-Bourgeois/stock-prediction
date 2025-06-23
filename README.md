@@ -83,5 +83,5 @@
 <pre><code class="language-sh">npm test
 </code></pre>
 <hr>
-<div align="left" class=""><a href="https://gitdocify.com/readme/stock-predicition#top">⬆ Return</a></div>
+<div align="left" class=""><a href="https://github.com/readme/stock-predicition#top">⬆ Return</a></div>
 <hr></div></div></div></div><div data-state="inactive" data-orientation="horizontal" role="tabpanel" aria-labelledby="radix-:r15:-trigger-edit" hidden="" id="radix-:r15:-content-edit" tabindex="0" class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"></div></div></div></div></div></div></main></div><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"></section></div>
