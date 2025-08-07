@@ -1,8 +1,16 @@
 <div align="center">
+
+  # This project was originally created prior to my enrollment in CS50x.
+  # I am submitting it as my final project because it solves a real-world problem and draws upon many of the lessons and concepts taught in the course.
+  # No part of this project was submitted for any other course or academic credit.
+  # Portions of the code were written with the assistance of GitHub Copilot / ChatGPT. These sections are clearly marked in the code where applicable.
+
+  <br>
+
   <h1>AI STOCK-PREDICTION</h1>
   <p><em>Use local LLM's to predict market trends & advise user if they should Buy, Hold or Sell</em></p>
 
-  <!-- Repository Metadata Badges (optional: replace with actual public badge URLs if available) -->
+  <!-- Repository Metadata Badges -->
   <img alt="last-commit" src="https://img.shields.io/github/last-commit/J-Bourgeois/stock-predicition" />
   <img alt="repo-top-language" src="https://img.shields.io/github/languages/top/J-Bourgeois/stock-predicition" />
   <img alt="repo-language-count" src="https://img.shields.io/github/languages/count/J-Bourgeois/stock-predicition" />
@@ -49,6 +57,42 @@
 - 📊 **Rich UI:** Interactive charts and modals.
 - ⚙️ **State Management:** Efficient Redux-based state handling.
 - 🎨 **Responsive Design:** Mobile-ready and theme-aware.
+
+### Description of Project
+
+This AI powered Stock-Prediciton app helps the user make valid investment insight into current trends of various stocks. Using a `Next.js` & `Node.js`tech stack for modern-fast development, `Typescript` for type validation to catch errors in development time instead of runtime & `Tailwind CSS` for quick styling, this tech stack is a new favorite among lots of front-end developers in 2025.
+
+At the core of the application lies the [`app/api/LLM/route.ts`](app/api/LLM/route.ts), which serves as the bridge between user queries and AI-powered stock analysis. This component leverages Ollama's local LLM infrastructure to process complex market data and generate actionable trading recommendations. The system analyzes multiple data points, including technical indicators, news sentiment, and historical price patterns, to provide users with informed `Buy`, `Hold`, or `Avoid` recommendations.
+
+The application's database architecture, defined in [`prisma/schema.prisma`](prisma/schema.prisma), implements a relational model using SQLite. This schema establishes crucial relationships between Users, Portfolios, and Stocks, enabling efficient data management and quick query responses. The decision to use SQLite was driven by its lightweight nature and excellent development workflow integration, while still maintaining the ability to scale to production databases if needed.
+
+User interface components are organized in the [`components/`](components/) directory, following a modular architecture. Key components include the [`PortfolioPage.tsx`](components/PortfolioPage.tsx), which provides a comprehensive view of user investments, and [`HomeClientPage.tsx`](components/HomeClientPage.tsx), serving as the main dashboard for market overview. The [`ChangeUserInfoForm.tsx`](components/ChangeUserInfoForm.tsx) component handles user profile management with secure update mechanisms. Each component is built with reusability and maintainability in mind, utilizing TypeScript for type safety and error prevention.
+
+State management is handled through Redux, with the store configuration in [`store/store.ts`](store/store.ts). This centralizes the application's state handling, managing everything from user authentication status to real-time stock data updates. The Redux implementation follows best practices for action creators, reducers, and selectors, ensuring predictable state updates and optimal performance.
+
+The [`lib/`](lib/) directory houses utility functions and shared logic, including the crucial [`fetchStocks.ts`](lib/fetchStocks.ts) module that manages API interactions with external data providers. This module implements sophisticated error handling and rate limiting to ensure reliable data retrieval while respecting API constraints.
+
+Authentication and security are implemented through the [`middleware.ts`](middleware.ts) file, which provides JWT-based authentication and route protection. The system includes secure session management and protection against common web vulnerabilities, ensuring user data remains private and secure.
+
+The application's routing logic is managed through Next.js 14's App Router, with the main layout defined in [`app/layout.tsx`](app/layout.tsx). This setup enables efficient server-side rendering where beneficial while maintaining interactive client-side features where needed. The routing structure supports dynamic user routes and API endpoints, all protected by appropriate authentication checks.
+
+Technical analysis capabilities are implemented in the LLM route, which calculates various market indicators including:
+- Moving averages (30-day and 180-day periods)
+- Price volatility metrics
+- Trend analysis using linear regression
+- News sentiment analysis with scoring algorithms
+
+The UI components leverage ShadcN UI and Tailwind CSS for a responsive, modern interface. Dark and light theme support is implemented through a theme provider, ensuring a consistent user experience across different viewing preferences. The responsive design adapts seamlessly from mobile to desktop viewports.
+
+Data visualization is handled through custom chart components that display stock price trends, technical indicators, and prediction overlays. These components are optimized for performance, using efficient rendering techniques and data memoization to handle real-time updates without compromising user experience.
+
+The application's error handling strategy is comprehensive, with custom error boundaries and fallback components ensuring graceful degradation when issues occur. API errors, network failures, and data inconsistencies are all handled appropriately, with user-friendly error messages and recovery options.
+
+Testing infrastructure is set up with Jest and React Testing Library, enabling comprehensive unit and integration testing of components and business logic. The project maintains high test coverage, ensuring reliability and making future modifications safer.
+
+Environment configuration is managed through multiple `.env` files, following security best practices for handling sensitive credentials and API keys. The project includes templates and clear documentation for setting up development environments.
+
+All these components work together to create a robust financial analysis platform that combines the power of AI with modern web technologies, providing users with sophisticated tools for making informed investment decisions. The architecture's modularity and clear separation of concerns make it both maintainable and extensible, ready for future enhancements and scaling requirements.
 
 ---
 
