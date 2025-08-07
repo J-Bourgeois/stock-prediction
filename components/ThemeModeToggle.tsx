@@ -1,5 +1,16 @@
 "use client";
 
+/**
+ * Toggle component for switching between theme modes.
+ * Provides user control over application theme.
+ *
+ * Features:
+ * - Light/Dark mode toggle
+ * - System theme option
+ * - Animated transitions
+ * - Persistent preference
+ */
+
 import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";

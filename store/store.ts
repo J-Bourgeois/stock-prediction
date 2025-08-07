@@ -5,6 +5,15 @@ import homeStocksNvidiaReducer from './homeStocksNvidiaSlice';
 import homeStocksAppleReducer from './homeStocksAppleSlice';
 import homeStocksMicrosoftReducer from './homeStocksMicrosoftSliceSlice';
 
+/**
+ * Redux store configuration
+ * Manages global state for:
+ * - Stock data for multiple companies (NVDA, AAPL, MSFT)
+ * - Time span selection for charts
+ * - Portfolio management state
+ * 
+ * Uses Redux Toolkit for simplified state management
+ */
 export const store = configureStore({
   reducer: {
     homeStocksNvidia: homeStocksNvidiaReducer,

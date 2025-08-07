@@ -1,11 +1,51 @@
+/**
+ * LLM-based Stock Analysis API Route
+ * 
+ * This server-side API endpoint provides AI-powered stock analysis using Ollama LLM.
+ * It combines technical analysis with sentiment analysis to generate trading recommendations.
+ * 
+ * Key Features:
+ * - Real-time stock data processing
+ * - News sentiment analysis
+ * - Technical indicators calculation
+ * - Streaming LLM responses
+ * 
+ * Data Processing:
+ * 1. Fetches and analyzes news sentiment
+ * 2. Retrieves historical stock prices
+ * 3. Calculates technical indicators
+ * 4. Generates AI-based recommendations
+ * 
+ * Technical Indicators:
+ * - Price change percentage
+ * - Linear regression trend
+ * - Price volatility
+ * - Short-term MA (30-day)
+ * - Long-term MA (180-day)
+ * 
+ * Dependencies:
+ * - Requires Ollama running locally on port 11434
+ * - Uses llama3.2:3b model
+ * - Needs access to stock and news data APIs
+ */
+
 "use server";
 
 import { fetchNewsData, fetchStockClosingPrices } from "@/lib/fetchStocks";
 
+/**
+ * Interface for sentiment data from news entities
+ * @property sentiment_score - Numerical score indicating sentiment (-1 to 1)
+ */
 interface EntitiesData {
   sentiment_score: number;
 }
 
+/**
+ * Interface for news article data
+ * @property title - Article headline
+ * @property entities - Array of sentiment scores for entities mentioned
+ */
 interface NewsData {
   title: string;
   entities: EntitiesData[];
@@ -25,6 +65,10 @@ interface ClosingPricesProps {
   data: ClosingPrices[];
 }
 
+/**
+ * Stock price summary interface
+ * Contains calculated technical indicators and trend metrics
+ */
 interface StockSummary {
   overallChangePercent: string;
   averageDailyTrend: string;
@@ -33,6 +77,11 @@ interface StockSummary {
   longTermMA: string;
 }
 
+/**
+ * Main API route handler for stock analysis
+ * @param req - Request object containing ticker symbol
+ * @returns Streaming response with AI-generated analysis
+ */
 export async function POST(req: Request): Promise<Response> {
   const { ticker } = await req.json();
   if (!ticker) {
@@ -49,6 +98,18 @@ export async function POST(req: Request): Promise<Response> {
   );
   const sentimentScoreMean = sumOfScores / allEntities.length;
 
+  /**
+   * Sentiment Analysis Helper
+   * Converts numerical sentiment scores to categorical assessments
+   * Scale:
+   * - Very Positive: >= 0.75
+   * - Positive: >= 0.50
+   * - Slightly Positive: >= 0.25
+   * - Neutral: > -0.25
+   * - Slightly Negative: > -0.50
+   * - Negative: > -0.75
+   * - Very Negative: <= -0.75
+   */
   const currentCompanyTone = (scoreMean: number): string => {
     if (scoreMean >= 0.75) {
       return "Very Positive";
@@ -69,6 +130,18 @@ export async function POST(req: Request): Promise<Response> {
 
   const allClosingPrices = closeRes.data.map((price) => price.close);
 
+  /**
+   * Technical Analysis Function
+   * Calculates key technical indicators from historical price data:
+   * 1. Overall price change (percentage)
+   * 2. Trend direction using linear regression
+   * 3. Price volatility (average deviation)
+   * 4. Moving averages (short and long term)
+   * 
+   * @param closingPrices - Array of historical closing prices
+   * @returns StockSummary object with calculated metrics
+   * @throws Error if insufficient data points
+   */
   function summarizeStockTrends(closingPrices: number[]): StockSummary {
     const length = closingPrices.length;
     if (length < 2) {
@@ -143,10 +216,17 @@ export async function POST(req: Request): Promise<Response> {
             - Explain your reasoning in 1-2 short sentances.
 `;
 
-    if (process.env.NODE_ENV !== "production") {
-      console.log("Generated LLM prompt:\n", prompt)
-    }
+  if (process.env.NODE_ENV !== "production") {
+    console.log("Generated LLM prompt:\n", prompt);
+  }
 
+  /**
+   * Stream Handler Setup
+   * Configures streaming response for LLM output
+   * - Creates text encoder for stream
+   * - Establishes connection to local Ollama instance
+   * - Handles chunked response streaming
+   */
   const encoder = new TextEncoder();
 
   const stream = new ReadableStream({

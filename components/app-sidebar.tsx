@@ -31,7 +31,22 @@ interface AppNavbarProps {
   userName: string | null
 }
 
+/**
+ * Main navigation sidebar component that handles the application's primary navigation.
+ * 
+ * Features:
+ * - Responsive design with mobile support
+ * - Dynamic menu items based on authentication state
+ * - Navigation to Home and Portfolio pages
+ * - User authentication actions (login/logout)
+ * - User profile management
+ * 
+ * Props:
+ * @param {string} userId - Current user's ID, used for conditional rendering and portfolio link
+ * @param {string} userName - Current user's name for display purposes
+ */
 const AppNavbar = ({ userId, userName }: AppNavbarProps) => {
+  // Dynamic menu items based on authentication state
   const menuItems = userId ? [
     {
       title: "Home",

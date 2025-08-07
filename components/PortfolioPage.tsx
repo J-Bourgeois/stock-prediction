@@ -12,6 +12,18 @@ interface Props {
   microsoftStock: homeStocksApi;
 }
 
+/**
+ * User's portfolio management page component.
+ * Displays and manages user's stock holdings and performance.
+ *
+ * Features:
+ * - Portfolio value overview
+ * - Individual stock holdings
+ * - Performance metrics
+ * - Buy/Sell actions
+ * - Historical performance
+ */
+
 export async function PortfolioPage({
   nvidiaStock,
   appleStock,

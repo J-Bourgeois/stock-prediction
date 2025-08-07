@@ -2,6 +2,18 @@ import { useEffect, useState } from "react";
 
 import { Button } from "./ui/button";
 
+/**
+ * Button component that adapts to different screen sizes.
+ * Changes appearance and behavior based on viewport.
+ *
+ * Features:
+ * - Responsive sizing
+ * - Icon support
+ * - Loading states
+ * - Different variants
+ * - Mobile optimization
+ */
+
 interface ResponsiveButtonProps {
   onClick: () => Promise<void>;
 }

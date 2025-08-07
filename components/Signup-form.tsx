@@ -3,6 +3,19 @@ import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { signUp } from "@/actions";
 
+/**
+ * Registration form for new users.
+ * Handles user account creation process.
+ *
+ * Features:
+ * - Email/Password registration
+ * - Form validation
+ * - Terms acceptance
+ * - Error handling
+ * - Success redirection
+ * - Login link
+ */
+
 export const SignupForm = () => {
   const [state, action] = useActionState(signUp, undefined);
 

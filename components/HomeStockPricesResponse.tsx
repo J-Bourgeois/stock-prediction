@@ -1,5 +1,16 @@
 "use client";
 
+/**
+ * Component to handle and display stock price data responses.
+ * Formats and presents stock price data from the API.
+ *
+ * Features:
+ * - Data transformation for chart display
+ * - Error handling
+ * - Loading states
+ * - Price history visualization
+ */
+
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { StocksChart } from "./StocksChart";

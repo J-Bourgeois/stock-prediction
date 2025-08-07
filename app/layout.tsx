@@ -26,15 +26,24 @@ export const metadata: Metadata = {
   description: "Made by Jacob B.",
 };
 
+/**
+ * Root layout component that wraps the entire application
+ * Implements core providers and global UI elements:
+ * - StoreProvider: Redux store wrapper
+ * - SidebarProvider: Manages collapsible sidebar state
+ * - ThemeProvider: Handles light/dark theme switching
+ * - Font configuration: Uses Geist font family for consistent typography
+ */
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Get sidebar state from cookies for persistence across sessions
   const cookieStore = await cookies();
-
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
 
+  // Get user data for authentication state
   const userId = await UserDataProvider();
 
   return (

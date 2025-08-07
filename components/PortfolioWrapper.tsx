@@ -1,5 +1,16 @@
 "use client";
 
+/**
+ * Wrapper component for portfolio-related features.
+ * Provides context and shared functionality for portfolio components.
+ *
+ * Features:
+ * - Portfolio data context
+ * - Authentication check
+ * - Layout management
+ * - Data refresh handling
+ */
+
 import { homeStocksApi } from "@/app/types/homeStocksInterface";
 import TimeSpanSelector from "./TimeSpanSelector";
 import PortfolioStockPricesResponse from "./PortfolioStockPricesResponse";

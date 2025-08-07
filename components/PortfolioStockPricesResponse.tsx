@@ -1,5 +1,16 @@
 "use client";
 
+/**
+ * Component to handle portfolio-specific stock price data.
+ * Processes and displays price data for stocks in user's portfolio.
+ *
+ * Features:
+ * - Portfolio-specific data formatting
+ * - Performance calculations
+ * - Gain/Loss tracking
+ * - Historical data presentation
+ */
+
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";

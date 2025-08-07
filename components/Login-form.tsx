@@ -1,3 +1,16 @@
+/**
+ * Authentication form for user login.
+ * Handles user credentials and authentication state.
+ *
+ * Features:
+ * - Email/Password authentication
+ * - Form validation
+ * - Error handling
+ * - Remember me option
+ * - Forgot password link
+ * - Sign up redirect
+ */
+
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { logIn } from "@/actions";

@@ -1,9 +1,42 @@
+/**
+ * ChangeUserInfoForm Component
+ * 
+ * A comprehensive form component that allows users to update their account information
+ * through a tabbed interface. Handles three types of user information updates:
+ * - Name change
+ * - Email change (requires re-authentication)
+ * - Password change (requires re-authentication)
+ * 
+ * Features:
+ * - Tabbed interface for organized form sections
+ * - Form validation with error display
+ * - Server actions integration for each update type
+ * - Loading states during form submission
+ * - Success notifications via toast messages
+ * - Current information display
+ * - Secure password handling
+ * - Auto-logout on sensitive changes (email/password)
+ * 
+ * Props:
+ * @param {string | undefined} userName - Current user's name
+ * @param {string | undefined} userEmail - Current user's email address
+ * 
+ * State Management:
+ * - Uses useActionState for handling form submissions
+ * - Separate states for name, email, and password updates
+ * - Loading states managed through useFormStatus
+ * 
+ * Security:
+ * - Client-side component with "force-dynamic" rendering
+ * - Protected routes and authenticated actions
+ * - Secure password input fields
+ */
+
 "use client";
 
 export const dynamic = "force-dynamic";
 
 import { changeName, changeEmail, changePassword } from "@/actions";
-import { useSearchParams } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -184,6 +217,10 @@ export function ChangeUserInfoForm({ userName, userEmail }: UserInfoProps) {
   );
 }
 
+/**
+ * Internal submit button component with loading state.
+ * Shows "Saving..." during form submission.
+ */
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
@@ -192,7 +229,7 @@ function SubmitButton() {
       type="submit"
       className="m-auto bg-slate-800 rounded-xl text-center p-2 w-6/12"
     >
-      Save changes
+      {pending ? "Saving..." : "Save changes"}
     </button>
   );
 }

@@ -1,5 +1,16 @@
 "use client";
 
+/**
+ * Component for selecting time ranges for data display.
+ * Controls the time period for charts and data views.
+ *
+ * Features:
+ * - Predefined time ranges
+ * - Custom range selection
+ * - Real-time updates
+ * - Range validation
+ */
+
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { useState } from "react";
@@ -41,7 +52,9 @@ export default function TimeSpanSelector() {
 
   return (
     <div className="flex items-center space-x-4">
-      <p className="xs:opacity-100 opacity-0 text-sm text-muted-foreground">Time Span</p>
+      <p className="xs:opacity-100 opacity-0 text-sm text-muted-foreground">
+        Time Span
+      </p>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -68,7 +81,11 @@ export default function TimeSpanSelector() {
           <div className="grid gap-2 w-full">
             {timeOptions.map((time) => {
               return (
-                <div key={time.label} data-key={time.label} className="relative flex items-center justify-between">
+                <div
+                  key={time.label}
+                  data-key={time.label}
+                  className="relative flex items-center justify-between"
+                >
                   <Button
                     value={time.value}
                     variant="ghost"

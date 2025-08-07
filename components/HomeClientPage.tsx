@@ -1,5 +1,17 @@
 "use client";
 
+/**
+ * Client-side home page component.
+ * Displays stock predictions and market data for the general public.
+ *
+ * Features:
+ * - Stock price charts
+ * - Market trends
+ * - Price predictions
+ * - Time period selection
+ * - Loading states
+ */
+
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { hydrateHomeStocksNvidia } from "@/store/homeStocksNvidiaSlice";

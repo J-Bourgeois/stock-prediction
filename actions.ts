@@ -52,6 +52,18 @@ const passwordSchema = z.object({
     .trim(),
 });
 
+/**
+ * User Registration Handler
+ * @param prevState - Previous form state for error handling
+ * @param formdata - Form data containing user registration details
+ * @returns Object containing validation errors or redirects to login
+ *
+ * Process:
+ * 1. Validates input against signup schema
+ * 2. Checks for existing user with same email
+ * 3. Hashes password for secure storage
+ * 4. Creates new user with empty portfolio
+ */
 export async function signUp(prevState: any, formdata: FormData) {
   const parsed = signupSchema.safeParse(Object.fromEntries(formdata));
 
@@ -88,6 +100,18 @@ export async function signUp(prevState: any, formdata: FormData) {
   redirect("/login?signup=success");
 }
 
+/**
+ * User Authentication Handler
+ * @param prevState - Previous form state for error handling
+ * @param formdata - Form data containing login credentials
+ * @returns Object containing validation errors or redirects to portfolio
+ *
+ * Process:
+ * 1. Validates login credentials
+ * 2. Verifies password match
+ * 3. Creates JWT session token
+ * 4. Sets secure HTTP-only cookie
+ */
 export async function logIn(prevState: any, formdata: FormData) {
   const result = logInSchema.safeParse(Object.fromEntries(formdata));
 
@@ -119,10 +143,25 @@ export async function logIn(prevState: any, formdata: FormData) {
   redirect(`/${user.id}/portfolio`);
 }
 
+/**
+ * Session Termination Handler
+ * Removes the authentication cookie to end user session
+ */
 export async function logOut() {
   (await cookies()).delete("token");
 }
 
+/**
+ * Portfolio Stock Addition Handler
+ * @param stockTicker - Stock symbol to add to portfolio
+ * @returns Success message or error object
+ *
+ * Process:
+ * 1. Verifies user authentication
+ * 2. Checks if stock already exists in portfolio
+ * 3. Validates stock exists in database
+ * 4. Creates new portfolio entry
+ */
 export async function addPortfolioStock(stockTicker: string) {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
@@ -180,6 +219,16 @@ export async function addPortfolioStock(stockTicker: string) {
   return { message: "Stock added to portfolio!" };
 }
 
+/**
+ * Portfolio Stock Removal Handler
+ * @param stockTicker - Stock symbol to remove from portfolio
+ * @returns Success message or error object
+ *
+ * Process:
+ * 1. Verifies user authentication
+ * 2. Locates stock in user's portfolio
+ * 3. Removes stock selection entry
+ */
 export async function removePortfolioStock(stockTicker: string) {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
@@ -226,6 +275,18 @@ export async function removePortfolioStock(stockTicker: string) {
   });
 }
 
+/**
+ * User Name Update Handler
+ * @param prevState - Previous form state for error handling
+ * @param formdata - Form data containing current and new names
+ * @returns Success status or validation errors
+ *
+ * Process:
+ * 1. Validates name format
+ * 2. Verifies current name matches records
+ * 3. Ensures new name is different
+ * 4. Updates user record
+ */
 export async function changeName(prevState: any, formdata: FormData) {
   const result = nameSchema.safeParse(Object.fromEntries(formdata));
 
@@ -283,6 +344,19 @@ export async function changeName(prevState: any, formdata: FormData) {
   return { success: true };
 }
 
+/**
+ * User Email Update Handler
+ * @param prevState - Previous form state for error handling
+ * @param formdata - Form data containing current and new emails
+ * @returns Success message or validation errors
+ *
+ * Process:
+ * 1. Validates email format
+ * 2. Verifies current email matches records
+ * 3. Ensures new email is different
+ * 4. Updates user record
+ * 5. Forces re-authentication
+ */
 export async function changeEmail(prevState: any, formdata: FormData) {
   const result = emailSchema.safeParse(Object.fromEntries(formdata));
 
@@ -341,6 +415,20 @@ export async function changeEmail(prevState: any, formdata: FormData) {
   redirect("/login?emailChange=success");
 }
 
+/**
+ * Password Update Handler
+ * @param prevState - Previous form state for error handling
+ * @param formdata - Form data containing current and new passwords
+ * @returns Success message or validation errors
+ *
+ * Process:
+ * 1. Validates password requirements
+ * 2. Verifies current password
+ * 3. Ensures new password is different
+ * 4. Hashes new password
+ * 5. Updates user record
+ * 6. Forces re-authentication
+ */
 export async function changePassword(prevState: any, formdata: FormData) {
   const result = passwordSchema.safeParse(Object.fromEntries(formdata));
 

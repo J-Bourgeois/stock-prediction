@@ -1,5 +1,17 @@
 "use client";
 
+/**
+ * Chart component for displaying stock price data.
+ * Visualizes stock price trends and predictions.
+ *
+ * Features:
+ * - Interactive price charts
+ * - Multiple timeframe support
+ * - Technical indicators
+ * - Price prediction overlay
+ * - Zoom and pan controls
+ */
+
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import {
