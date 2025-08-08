@@ -1,4 +1,8 @@
 /**
+ * 
+ * 
+ * Github Copilot was used to help create API route for targeting local LLM with Ollama
+ * 
  * LLM-based Stock Analysis API Route
  * 
  * This server-side API endpoint provides AI-powered stock analysis using Ollama LLM.

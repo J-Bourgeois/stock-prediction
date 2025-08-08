@@ -8,6 +8,10 @@ import { cookies } from "next/headers";
 import { encrypt, verifyJwt } from "@/lib/session";
 import { redirect } from "next/navigation";
 
+/*
+  Zod schemas were assisted with Github Copilot
+*/
+
 const signupSchema = z.object({
   name: z
     .string()
@@ -53,6 +57,9 @@ const passwordSchema = z.object({
 });
 
 /**
+ * 
+ * Github Copilot was used to help intergrate schema checks to SignUp action
+ * 
  * User Registration Handler
  * @param prevState - Previous form state for error handling
  * @param formdata - Form data containing user registration details
@@ -101,6 +108,9 @@ export async function signUp(prevState: any, formdata: FormData) {
 }
 
 /**
+ * 
+ * Github Copilot was used to help intergrate schema checks to LogIn action
+ * 
  * User Authentication Handler
  * @param prevState - Previous form state for error handling
  * @param formdata - Form data containing login credentials
@@ -152,6 +162,9 @@ export async function logOut() {
 }
 
 /**
+ * 
+ * Various video tutorials on Youtube helped me understand how to use Next.js built-in functions
+ * 
  * Portfolio Stock Addition Handler
  * @param stockTicker - Stock symbol to add to portfolio
  * @returns Success message or error object
@@ -276,6 +289,9 @@ export async function removePortfolioStock(stockTicker: string) {
 }
 
 /**
+ * 
+ * Github Copilot was used to help intergrate schema checks to ChangeName action
+ * 
  * User Name Update Handler
  * @param prevState - Previous form state for error handling
  * @param formdata - Form data containing current and new names
@@ -345,6 +361,10 @@ export async function changeName(prevState: any, formdata: FormData) {
 }
 
 /**
+ * 
+ * Github Copilot was used to help intergrate schema checks to ChangeEmail action
+ * 
+ * 
  * User Email Update Handler
  * @param prevState - Previous form state for error handling
  * @param formdata - Form data containing current and new emails
@@ -416,6 +436,9 @@ export async function changeEmail(prevState: any, formdata: FormData) {
 }
 
 /**
+ * 
+ * Github Copilot was used to help intergrate schema checks to changePassword action
+ * 
  * Password Update Handler
  * @param prevState - Previous form state for error handling
  * @param formdata - Form data containing current and new passwords

@@ -2,6 +2,10 @@ import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { verifyJwt } from "./lib/session";
 
+/*
+  Github Copilot was used to help with designing middleware & understanding how to grab users ID from the url
+*/
+
 export async function middleware(req: NextRequest) {
   const cookie = req.cookies.get("token")?.value;
   const session = await verifyJwt(cookie);

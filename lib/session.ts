@@ -1,6 +1,8 @@
 import "server-only";
 import { SignJWT, jwtVerify } from "jose";
 
+// Github Copilot was used to help create Server-Side validation for JWTs
+
 const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
 export async function encrypt(payload: any) {

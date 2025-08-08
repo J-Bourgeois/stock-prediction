@@ -4,6 +4,8 @@
   # I am submitting it as my final project because it solves a real-world problem and draws upon many of the lessons and concepts taught in the course.
   # No part of this project was submitted for any other course or academic credit.
   # Portions of the code were written with the assistance of GitHub Copilot / ChatGPT. These sections are clearly marked in the code where applicable.
+  # ChatGPT was only used to help understand coding concepts when i didn't understand something, any AI used directly in code was Github Copilot
+  # Areas where Github Copilot assisted include: action.ts (Helped me use Zod for schema validation), session.ts (helped me incorprate server-side validation), middleware (First time designing middleware), route.ts (Helped me with the syntax on how to actually use the Local LLM in my app) & package.json (Helped me develop a script for thr user to use so nedded commands are ran in the order they're supposed to)
 
   <br>
 
