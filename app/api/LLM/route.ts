@@ -5,7 +5,7 @@
  * 
  * LLM-based Stock Analysis API Route
  * 
- * This server-side API endpoint provides AI-powered stock analysis using Ollama LLM.
+ * This server-side API endpoint provides AI-powered stock analysis using an Ollama LLM.
  * It combines technical analysis with sentiment analysis to generate trading recommendations.
  * 
  * Key Features:
