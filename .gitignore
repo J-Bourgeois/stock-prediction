@@ -49,3 +49,6 @@ lib/generated/prisma/
 
 #SQlite Database
 dev.db*
+
+# Venv
+/venv/
