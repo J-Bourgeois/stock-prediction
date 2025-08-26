@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
-export default async function User({ params }: { params: { user: string } }) {
+export default async function User({ params }: { params: Promise<{ user: string }> }) {
   const { user } = await params;
 
   const cookieStore = await cookies();
